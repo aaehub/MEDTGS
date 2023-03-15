@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using project2.Data;
 using project2.Models;
@@ -39,6 +40,10 @@ namespace project2.Controllers
             {
                 return NotFound();
             }
+
+
+
+
 
             return View(article);
         }

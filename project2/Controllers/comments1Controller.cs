@@ -62,9 +62,10 @@ namespace project2.Controllers
             
                 _context.Add(comments);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               
             
-         
+            ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
+            return View(comments);
         }
 
         // GET: comments1/Edit/5

@@ -14,8 +14,8 @@ namespace project2.Models
 
         public string imagefilename { get; set; }
 
-        public List<comments> comments { get; set; }
-       
+      //  public virtual ICollection<comments> comments { get; set; }
+
 
     }
 }

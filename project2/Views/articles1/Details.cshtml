@@ -40,6 +40,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.imagefilename)
         </dd>
+        
+        <ul>
+            @foreach (var std in @ViewData["test"] as IList<comments>)
+            {
+                <li>
+                    @std.comment
+                </li>
+            }
+        </ul>
+
+
     </dl>
 </div>
 <div>

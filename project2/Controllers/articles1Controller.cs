@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using project2.Data;
 using project2.Models;
@@ -39,6 +41,58 @@ namespace project2.Controllers
             {
                 return NotFound();
             }
+
+
+
+
+            List<comments> comments = new List<comments>();
+
+
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            string sql;
+            sql = "select * from comments where articleid =" + article.Id;
+            SqlCommand comm = new SqlCommand(sql, conn);
+
+            conn.Open();
+
+
+
+            SqlDataReader reader = comm.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+
+
+
+                comments.Add(new comments
+                {
+
+                    Id = (int)reader["Id"],
+                    Date = (DateTime)reader["Date"],
+                    comment = (string)reader["comment"],
+                    articleid = (int)reader["articleid"],
+                    article = article
+
+                });
+
+
+
+            }
+
+
+
+            reader.Close();
+            conn.Close();
+
+            ViewData["test"] = comments;
+
+
+
+
+
+
+
 
             return View(article);
         }
