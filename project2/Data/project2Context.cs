@@ -19,5 +19,7 @@ namespace project2.Data
         public DbSet<project2.Models.article> article { get; set; }
 
         public DbSet<project2.Models.report> report { get; set; }
+
+        public DbSet<project2.Models.comments> comments { get; set; }
     }
 }

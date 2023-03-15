@@ -1,8 +1,10 @@
-﻿namespace project2.Models
+﻿using Microsoft.Extensions.Hosting;
+
+namespace project2.Models
 {
     public class article
     {
-
+ 
         public int Id { get; set; }
 
         public string topic { get; set; }
@@ -12,7 +14,8 @@
 
         public string imagefilename { get; set; }
 
-
+        public List<comments> comments { get; set; }
+       
 
     }
 }

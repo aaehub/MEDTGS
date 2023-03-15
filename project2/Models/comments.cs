@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
+
 namespace project2.Models
 {
 
@@ -20,11 +21,17 @@ namespace project2.Models
         public DateTime Date { get; set; }
         public string comment { get; set; }
 
+        
 
+        [ForeignKey("articleid")]
+      //  public virtual article articleid { get; set; }
+
+        
         public int articleid { get; set; }
+        public article article { get; set; }
 
-      
     }
-  
+
+
 
 }
