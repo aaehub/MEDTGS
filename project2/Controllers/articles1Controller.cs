@@ -135,6 +135,86 @@ namespace project2.Controllers
             return View(article);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment( string commenttext, int articleid)
+        {
+
+
+            
+        
+
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2");
+
+
+           
+
+          
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            string sql;
+
+            
+            /*
+             * 
+            
+            List<comments> comments = new List<comments>();
+            comments.Add(new comments
+            {
+
+                Id = default(int),
+                Date = DateTime.Now,
+                comment = commenttext,
+
+                articleid = articleid,
+                article=article
+            }) ;
+
+             ViewData["test"] = comments;
+
+            */
+
+           
+
+            sql = " INSERT INTO comments VALUES(  GETDATE() " + ", '"  + commenttext + "' ," + articleid + ")";
+
+            SqlCommand comm = new SqlCommand(sql, conn);
+            conn.Open();
+
+
+           
+
+            comm.ExecuteNonQuery();
+            comm.Dispose();
+
+            conn.Close();
+
+
+
+
+            return RedirectToAction("Details", "articles1", new { id = articleid });
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // POST: articles1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

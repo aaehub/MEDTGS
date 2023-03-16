@@ -41,6 +41,18 @@
             @Html.DisplayFor(model => model.imagefilename)
         </dd>
         
+         <form  asp-action="CreateComment">
+      
+        <div class="form-group">
+            <label  for="comment-text">Example textarea</label>
+         <textarea class="form-control" name="commenttext" rows="3"></textarea>
+            <input class="form-control" type="hidden" name="articleid" value= @Model.Id />  
+             
+             <button type="submit"  class="btn btn-primary">Submit</button>
+         
+         </div>
+
+        </form>
         <ul>
             @foreach (var std in @ViewData["test"] as IList<comments>)
             {
@@ -49,6 +61,7 @@
                 </li>
             }
         </ul>
+
 
 
     </dl>

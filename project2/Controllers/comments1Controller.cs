@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using project2.Data;
 using project2.Models;
+using static System.Net.Mime.MediaTypeNames;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace project2.Controllers
 {
@@ -67,6 +70,39 @@ namespace project2.Controllers
             ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
             return View(comments);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: comments1/Edit/5
         public async Task<IActionResult> Edit(int? id)
