@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using project2.Models;
 using System.Diagnostics;
 
@@ -12,7 +13,7 @@ namespace project2.Controllers
         {
             _logger = logger;
         }
-        
+
         public IActionResult Index()
         {
             return View();
@@ -28,5 +29,49 @@ namespace project2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> customerhome()
+        {
+           
+
+
+            List<article> li = new List<article>();
+
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            string sql;
+            sql = "select * from article order by Id";
+            SqlCommand comm = new SqlCommand(sql, conn);
+
+            conn.Open();
+
+
+
+            SqlDataReader reader = comm.ExecuteReader();
+
+            while (reader.Read())
+            {
+                li.Add(new article
+                {
+
+                    Id = (int)reader["Id"],
+                    topic = (string)reader["topic"],
+                    category = (string)reader["category"],
+                    tag = (string)reader["tag"],
+                    description = (string)reader["description"],
+                    imagefilename = (string)reader["imagefilename"]
+
+                });
+            }
+            reader.Close();
+            conn.Close();
+
+
+
+            return View(li);
+
+        }
+
+
     }
-}
+
+    }
