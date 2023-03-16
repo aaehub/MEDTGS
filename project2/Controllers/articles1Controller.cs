@@ -26,6 +26,11 @@ namespace project2.Controllers
         {
               return View(await _context.article.ToListAsync());
         }
+
+
+
+
+
        
         // GET: articles1/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -291,5 +296,32 @@ namespace project2.Controllers
         {
           return _context.article.Any(e => e.Id == id);
         }
+
+
+
+        public async Task<IActionResult> slider()
+        {
+
+            return View(await _context.article.ToListAsync());
+
+
+        }
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

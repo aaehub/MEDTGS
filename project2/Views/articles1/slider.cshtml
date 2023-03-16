@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<project2.Models.article>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "slider";
 }
+
+<h1>slider</h1>
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,45 +38,4 @@
     <a class="carousel-control-next" href="#myCarousel" data-slide="next">
         <span class="carousel-control-next-icon bg-secondary"></span>
     </a>
-</div
-
-<div class="container-fluid">
-    <div class="row">
-
-
-        <di class="hero-unit"></di>
-        <h1> hi @ViewData["name"]</h1>
-     
-
-        @foreach (var item in Model)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        @item.description
-                    </div>
-
-                    <div class="card-body">
-                        <img class="card-img-top" src="~/images/@item.imagefilename" height="150" />
-                        @item.Id
-                    </div>
-                    <div class="card-footer">
-
-
-
-
-
-                        <a asp-controller="articles1" asp-action="Details" asp-route-id="@item.Id">details </a>|
-                       
-
-
-
-                    </div>
-                </div>
-            </div>
-
-
-        }
-
-    </div>
 </div>
