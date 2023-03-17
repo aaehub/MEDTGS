@@ -30,8 +30,46 @@ namespace project2.Controllers
 
 
 
+        // GET: articles1/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-       
+        // POST: articles1/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,imagefilename")] article article)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(article);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(article);
+        }
+
+        // GET: articles1/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.article == null)
+            {
+                return NotFound();
+            }
+
+            var article = await _context.article.FindAsync(id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            return View(article);
+        }
+
+
+
         // GET: articles1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -77,7 +115,10 @@ namespace project2.Controllers
                     Date = (DateTime)reader["Date"],
                     comment = (string)reader["comment"],
                     articleid = (int)reader["articleid"],
+                    accountid = (int)reader[0],
                     article = article
+
+
 
                 });
 
@@ -102,48 +143,11 @@ namespace project2.Controllers
             return View(article);
         }
 
-        // GET: articles1/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: articles1/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,imagefilename")] article article)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(article);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(article);
-        }
-
-        // GET: articles1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.article == null)
-            {
-                return NotFound();
-            }
-
-            var article = await _context.article.FindAsync(id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-            return View(article);
-        }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateComment( string commenttext, int articleid)
+        public async Task<IActionResult> CreateComment( string commenttext, int articleid,int accountid)
         {
 
 
@@ -182,7 +186,7 @@ namespace project2.Controllers
 
            
 
-            sql = " INSERT INTO comments VALUES(  GETDATE() " + ", '"  + commenttext + "' ," + articleid + ")";
+            sql = " INSERT INTO comments VALUES(  GETDATE() " + ", '"  + commenttext + "' ," + articleid +",  "+ 4 + ")";
 
             SqlCommand comm = new SqlCommand(sql, conn);
             conn.Open();

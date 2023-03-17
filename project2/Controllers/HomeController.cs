@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using project2.Models;
 using System.Diagnostics;
 
@@ -29,7 +30,7 @@ namespace project2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+   
         public async Task<IActionResult> customerhome()
         {
            
@@ -70,8 +71,37 @@ namespace project2.Controllers
             return View(li);
 
         }
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+       
+            
+            public async Task<IActionResult> register()
+            {
+                
+                return View();
+            }
 
 
+
+
+
+
+          
+
+
+     
+
+        public async Task<IActionResult> login()
+        {
+
+
+
+
+
+            return View();
+
+
+        }
     }
 
     }

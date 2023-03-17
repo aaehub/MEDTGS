@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.comment)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.accountid)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.article)
             </th>
             <th></th>
@@ -32,6 +35,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.accountid)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.article.Id)

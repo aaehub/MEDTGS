@@ -27,6 +27,11 @@
                 <select asp-for="articleid" class ="form-control" asp-items="ViewBag.articleid"></select>
             </div>
             <div class="form-group">
+                <label asp-for="accountid" class="control-label"></label>
+                <input asp-for="accountid" class="form-control" />
+                <span asp-validation-for="accountid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -37,6 +42,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

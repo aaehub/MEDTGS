@@ -4,32 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using project2.Data;
 using project2.Models;
-using static System.Net.Mime.MediaTypeNames;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace project2.Controllers
 {
-    public class comments1Controller : Controller
+    public class commentsController : Controller
     {
         private readonly project2Context _context;
 
-        public comments1Controller(project2Context context)
+        public commentsController(project2Context context)
         {
             _context = context;
         }
 
-        // GET: comments1
+        // GET: comments
         public async Task<IActionResult> Index()
         {
             var project2Context = _context.comments.Include(c => c.article);
             return View(await project2Context.ToListAsync());
         }
 
-        // GET: comments1/Details/5
+        // GET: comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.comments == null)
@@ -48,63 +45,31 @@ namespace project2.Controllers
             return View(comments);
         }
 
-        // GET: comments1/Create
+        // GET: comments/Create
         public IActionResult Create()
         {
             ViewData["articleid"] = new SelectList(_context.article, "Id", "Id");
             return View();
         }
 
-        // POST: comments1/Create
+        // POST: comments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,comment,articleid")] comments comments)
+        public async Task<IActionResult> Create([Bind("Id,Date,comment,articleid,accountid")] comments comments)
         {
-            
+            if (ModelState.IsValid)
+            {
                 _context.Add(comments);
                 await _context.SaveChangesAsync();
-               
-            
+                return RedirectToAction(nameof(Index));
+            }
             ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
             return View(comments);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // GET: comments1/Edit/5
+        // GET: comments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.comments == null)
@@ -121,12 +86,12 @@ namespace project2.Controllers
             return View(comments);
         }
 
-        // POST: comments1/Edit/5
+        // POST: comments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,comment,articleid")] comments comments)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,comment,articleid,accountid")] comments comments)
         {
             if (id != comments.Id)
             {
@@ -157,7 +122,7 @@ namespace project2.Controllers
             return View(comments);
         }
 
-        // GET: comments1/Delete/5
+        // GET: comments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.comments == null)
@@ -176,7 +141,7 @@ namespace project2.Controllers
             return View(comments);
         }
 
-        // POST: comments1/Delete/5
+        // POST: comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
