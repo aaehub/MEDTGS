@@ -15,27 +15,27 @@ namespace project2.Controllers
             _logger = logger;
         }
 
-       // public IActionResult adminhome()
-       // {
-        //    ViewData["name"] = HttpContext.Session.GetString("name");
+        public async Task<IActionResult> adminhome()
+        {
+            ViewData["name"] = HttpContext.Session.GetString("name");
 
 
 
-        //    string ss = HttpContext.Session.GetString("role");
-        //    if (ss == "admin")
-        //    {
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
 
 
 
-        //        return View();
-        //    }
+                return View();
+            }
 
 
-        //    else
-        //        return RedirectToAction("login", "home");
+            else
+                return RedirectToAction("login", "home");
 
 
-        //}
+        }
 
         public IActionResult Index()
         {

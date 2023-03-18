@@ -115,7 +115,6 @@ namespace project2.Controllers
                     Date = (DateTime)reader["Date"],
                     comment = (string)reader["comment"],
                     articleid = (int)reader["articleid"],
-                    
                     article = article
 
 
