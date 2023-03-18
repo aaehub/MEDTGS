@@ -15,6 +15,28 @@ namespace project2.Controllers
             _logger = logger;
         }
 
+       // public IActionResult adminhome()
+       // {
+        //    ViewData["name"] = HttpContext.Session.GetString("name");
+
+
+
+        //    string ss = HttpContext.Session.GetString("role");
+        //    if (ss == "admin")
+        //    {
+
+
+
+        //        return View();
+        //    }
+
+
+        //    else
+        //        return RedirectToAction("login", "home");
+
+
+        //}
+
         public IActionResult Index()
         {
             return View();
@@ -74,34 +96,14 @@ namespace project2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult adminhome()
-        {
-            ViewData["name"] = HttpContext.Session.GetString("name");
 
-
-
-            string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
-            {
-
-
-
-                return View();
-            }
-
-
-            else
-                return RedirectToAction("login", "home");
-
-
-        }
         public IActionResult logout()
         {
             HttpContext.Session.Remove("Id");
-            HttpContext.Session.Remove("name");
+            HttpContext.Session.Remove("username");
             HttpContext.Session.Remove("role");
 
-            HttpContext.Response.Cookies.Delete("name");
+            HttpContext.Response.Cookies.Delete("username");
             HttpContext.Response.Cookies.Delete("role");
 
             return RedirectToAction("login", "Home");
@@ -113,6 +115,27 @@ namespace project2.Controllers
             return View();
         }
 
+        //public IActionResult adminhome()
+        //{
+        //    ViewData["name"] = HttpContext.Session.GetString("name");
+
+
+
+        //    string ss = HttpContext.Session.GetString("role");
+        //    if (ss == "admin")
+        //    {
+
+
+
+        //        return View();
+        //    }
+
+
+        //    else
+        //        return RedirectToAction("login", "home");
+
+
+        //}
         [HttpPost, ActionName("login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> login(string na, string pa, bool auto)
@@ -132,7 +155,7 @@ namespace project2.Controllers
             if (reader.Read())
             {
                 string id = Convert.ToString((int)reader["Id"]);
-                string na1 = (string)reader["name"];
+                string na1 = (string)reader["username"];
 
                 string ro = (string)reader["role"];
 
@@ -149,7 +172,7 @@ namespace project2.Controllers
 
                 if (auto == true)
                 {
-                    HttpContext.Response.Cookies.Append("name", na1);
+                    HttpContext.Response.Cookies.Append("username", na1);
                     HttpContext.Response.Cookies.Append("role", ro);
                 }
 

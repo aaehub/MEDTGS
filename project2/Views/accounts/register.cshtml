@@ -3,8 +3,33 @@
 <h4>accounts</h4>
 <hr />
 <div class="row">
+    
+ <script>
+
+
+
+ function VP() {
+        var pass1 = document.getElementById("password").value;
+        var pass2 = document.getElementById("pass2").value;
+        //check empty password field
+        if (pass1.value == pass2.value) {    
+            if (pass1 == pass2) {
+               document.getElementById("rb").disabled = false;
+            } else {
+                document.getElementById("rb").disabled = true;
+                document.getElementById("message").innerHTML = "wrong conformation";
+
+            }
+        }
+        }
+
+
+   
+</script>
+
     <div class="col-md-4">
         <form asp-action="register">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="username" class="control-label"></label>
@@ -18,21 +43,32 @@
             </div>
             <div class="form-group">
                 <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control" />
+                <input type="password" asp-for="password" class="form-control" />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="gender" class="control-label"></label>
-                <input asp-for="gender" class="form-control" />
-                <span asp-validation-for="gender" class="text-danger"></span>
+             <div class="form-group">
+                <label  class="control-label">password confirmation</label>
+                <input id="pass2" type="password" onchange="VP()" class="form-control" />
+              
             </div>
+          
+                 <div  class="form-group">
+                 <label asp-for="gender" class="control-label"></label>
+
+
+            <div  class="checkbox">
+               <label> <input type="radio" asp-for="gender" value="male" id="rm" /> Male</label>
+                </div>
+                <div class="checkbox">
+                    <label> <input  type="radio"  asp-for="gender" value="female" id="rf" />Female</label>
+                   </div> 
+                     <span asp-validation-for="gender"  class="text-danger" ></span>
+                 </div>
+         
+         
+
             <div class="form-group">
-                <label asp-for="role" class="control-label"></label>
-                <input asp-for="role" class="form-control" />
-                <span asp-validation-for="role" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit"  id="rb" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -42,3 +78,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

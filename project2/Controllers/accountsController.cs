@@ -26,14 +26,15 @@ namespace project2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> register([Bind("name,password")] accounts myusers)
+        public async Task<IActionResult> register([Bind("username,email,password,gender,role,Date")] accounts myusers)
         {
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\2\\Documents\\carSale.mdf;Integrated Security=True;Connect Timeout=30");
 
-            conn.Open();
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
             string sql;
+            conn.Open();
+
             Boolean flage = false;
-            sql = "select * from accounts where name = '" + myusers.username + "'";
+            sql = "select * from accounts where username = '" + myusers.username + "'";
             SqlCommand comm = new SqlCommand(sql, conn);
             SqlDataReader reader = comm.ExecuteReader();
             if (reader.Read())
@@ -41,6 +42,7 @@ namespace project2.Controllers
                 flage = true;
             }
             reader.Close();
+          
             if (flage == true)
             {
                 ViewData["message"] = "name already exists";
@@ -50,10 +52,14 @@ namespace project2.Controllers
             {
 
                 myusers.role = "customer";
+               
+                 myusers.Date = DateTime.Now;
+          
+              
 
 
 
-                HttpContext.Session.SetString("name", myusers.username);
+                HttpContext.Session.SetString("username", myusers.username);
                 HttpContext.Session.SetString("role", myusers.role);
 
 
@@ -73,7 +79,6 @@ namespace project2.Controllers
 
 
         }
-
         // GET: accounts
         public async Task<IActionResult> Index()
         {
@@ -109,7 +114,7 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,username,email,password,gender,role")] accounts accounts)
+        public async Task<IActionResult> Create([Bind("Id,username,email,password,gender,role,Date")] accounts accounts)
         {
             if (ModelState.IsValid)
             {
@@ -141,7 +146,7 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,username,email,password,gender,role")] accounts accounts)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,username,email,password,gender,role,Date")] accounts accounts)
         {
             if (id != accounts.Id)
             {
