@@ -146,8 +146,13 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,username,email,password,gender,role,Date")] accounts accounts)
+
+       
+        public async Task<IActionResult> Edit(int id, [Bind("Id,username,email,password,gender,role,Date")] accounts accounts )
         {
+
+            accounts.Date = DateTime.Now;
+
             if (id != accounts.Id)
             {
                 return NotFound();
@@ -157,8 +162,14 @@ namespace project2.Controllers
             {
                 try
                 {
+
+                    ModelState.Remove("Date");
                     _context.Update(accounts);
+                   
                     await _context.SaveChangesAsync();
+                   
+                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

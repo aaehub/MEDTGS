@@ -14,19 +14,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" />
-                <span asp-validation-for="title" class="text-danger"></span>
+                <h4>id</h4>
+              
+                @Model.Id  <br />
+                
+                <h4>title</h4>
+                
+                @Model.title
+                <br />
+                <h4>content</h4> 
+                
+                @Model.content
+                <br />
+                <h4>date</h4>
+             
+                @Model.date<br />
+                <br />
+                
+                
+                
+                
+                
+                <input hidden asp-for="title" class="form-control" />
+               
             </div>
             <div class="form-group">
-                <label asp-for="date" class="control-label"></label>
-                <input asp-for="date" class="form-control" />
-                <span asp-validation-for="date" class="text-danger"></span>
+               
+                <input hidden asp-for="date" class="form-control" />
+               
             </div>
             <div class="form-group">
-                <label asp-for="content" class="control-label"></label>
-                <input asp-for="content" class="form-control" />
-                <span asp-validation-for="content" class="text-danger"></span>
+               
+                <input hidden asp-for="content" class="form-control" />
+                
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

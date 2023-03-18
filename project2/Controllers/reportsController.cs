@@ -58,6 +58,8 @@ namespace project2.Controllers
         {
             if (ModelState.IsValid)
             {
+                report.date = DateTime.Now;
+                report.isSolved = false;
                 _context.Add(report);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,6 +99,9 @@ namespace project2.Controllers
             {
                 try
                 {
+                    ModelState.Remove("title");
+                    ModelState.Remove("date");
+                    ModelState.Remove("title");
                     _context.Update(report);
                     await _context.SaveChangesAsync();
                 }
