@@ -30,10 +30,10 @@ namespace project2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-   
+
         public async Task<IActionResult> customerhome()
         {
-           
+
 
 
             List<article> li = new List<article>();
@@ -71,37 +71,125 @@ namespace project2.Controllers
             return View(li);
 
         }
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-       
-            
-            public async Task<IActionResult> register()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult adminhome()
+        {
+            ViewData["name"] = HttpContext.Session.GetString("name");
+
+
+
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
             {
-                
+
+
+
                 return View();
             }
 
 
-
-
-
-
-          
-
-
-     
-
-        public async Task<IActionResult> login()
-        {
-
-
-
-
-
-            return View();
+            else
+                return RedirectToAction("login", "home");
 
 
         }
-    }
+        public IActionResult logout()
+        {
+            HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("name");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("name");
+            HttpContext.Response.Cookies.Delete("role");
+
+            return RedirectToAction("login", "Home");
+
+        }
+
+        public IActionResult login()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("login")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> login(string na, string pa, bool auto)
+        {
+
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2");
+
+
+            SqlConnection conn1 = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            string sql;
+            sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
+            SqlCommand comm = new SqlCommand(sql, conn1);
+            conn1.Open();
+            SqlDataReader reader = comm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                string id = Convert.ToString((int)reader["Id"]);
+                string na1 = (string)reader["name"];
+
+                string ro = (string)reader["role"];
+
+
+                HttpContext.Session.SetString("Id", id);
+                HttpContext.Session.SetString("name", na1);
+                HttpContext.Session.SetString("role", ro);
+
+                reader.Close();
+                conn1.Close();
+
+
+
+
+                if (auto == true)
+                {
+                    HttpContext.Response.Cookies.Append("name", na1);
+                    HttpContext.Response.Cookies.Append("role", ro);
+                }
+
+                if (ro == "customer")
+                {
+
+                    return RedirectToAction("customerhome", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("adminhome", "Home");
+                }
+
+
+
+
+
+
+            }
+            else
+            {
+                ViewData["Message"] = "wrong user name and password";
+
+
+
+            }
+
+            return View();
+
+        }
+
+
+
+
+
+
+
 
     }
+}
+
+
+    

@@ -1,0 +1,57 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "View";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body style="background-color:lightgrey; color: white; ">
+
+    <div style="
+        display: grid;
+        justify-content: center;
+        border-radius: 25px ;
+        background-color:rgba(26, 26, 26, 0.533) ;
+        margin: 20% ;
+        padding:5%;
+        height:auto;
+
+      ">
+        <h2>login</h2>
+        <form asp-action="Login">
+            <div class="form-group">
+                <label class="control-label"> user Name</label>
+                <input name="na" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label"> email</label>
+                <input email name="email" class="form-control" />
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="pa" class="control-label"> user Password</label>
+                <input name="pa" class="form-control" /> <br />
+            </div>
+
+            <input type="submit" value="Login" class="btn btn-primary" />
+
+            <label for="">auto login</label> <input type="checkbox" value="True" id="auto" name="auto" />
+
+            <p style="color: red">@ViewData["message"]</p>
+
+        </form>
+
+        <label for="">you dont have one ? <a asp-controller="accounts" asp-action="register"> create account</a></label>
+    </div>
+
+</body>
+</html>

@@ -1,4 +1,11 @@
-﻿namespace project2.Models
+﻿using Microsoft.EntityFrameworkCore;
+using project2.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Xml.Linq;
+
+namespace project2.Models
 {
 
     public class accounts
@@ -11,8 +18,11 @@
         public string password { get; set; }
         public string gender { get; set; }
 
-        public bool isadmin    { get; set; }
-        public bool isexpert { get; set; }
+        public string role { get; set; }
+
+        
+
+
 
     }
 }
