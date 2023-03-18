@@ -115,7 +115,7 @@ namespace project2.Controllers
                     Date = (DateTime)reader["Date"],
                     comment = (string)reader["comment"],
                     articleid = (int)reader["articleid"],
-                    accountid = (int)reader[0],
+                    
                     article = article
 
 
@@ -164,7 +164,7 @@ namespace project2.Controllers
             SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
             string sql;
 
-            
+
             /*
              * 
             
@@ -184,9 +184,10 @@ namespace project2.Controllers
 
             */
 
-           
+            string ss = HttpContext.Session.GetString("Id");
+          int b= Convert.ToInt32(ss);
 
-            sql = " INSERT INTO comments VALUES(  GETDATE() " + ", '"  + commenttext + "' ," + articleid +",  "+ 4 + ")";
+            sql = " INSERT INTO comments VALUES(  GETDATE() " + ", '"  + commenttext + "' ," + articleid +",  " +b  + ")";
 
             SqlCommand comm = new SqlCommand(sql, conn);
             conn.Open();

@@ -173,6 +173,7 @@ namespace project2.Controllers
                 if (auto == true)
                 {
                     HttpContext.Response.Cookies.Append("username", na1);
+                    HttpContext.Response.Cookies.Append("Id", id);
                     HttpContext.Response.Cookies.Append("role", ro);
                 }
 
