@@ -29,6 +29,8 @@ namespace project2.Controllers
         public async Task<IActionResult> register([Bind("username,email,password,gender,role,Date")] accounts myusers)
         {
 
+
+
             SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
             string sql;
             conn.Open();
@@ -82,31 +84,80 @@ namespace project2.Controllers
         // GET: accounts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.accounts.ToListAsync());
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+
+
+                return View(await _context.accounts.ToListAsync());
+            }
+
+
+            else
+             HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+
+           
         }
 
         // GET: accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.accounts == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
             {
-                return NotFound();
+
+
+
+                if (id == null || _context.accounts == null)
+                {
+                    return NotFound();
+                }
+
+                var accounts = await _context.accounts
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (accounts == null)
+                {
+                    return NotFound();
+                }
+
+                return View(accounts);
             }
 
-            var accounts = await _context.accounts
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (accounts == null)
-            {
-                return NotFound();
-            }
 
-            return View(accounts);
+            else
+                return RedirectToAction("login", "home");
+          
         }
 
         // GET: accounts/Create
         public IActionResult Create()
         {
-            return View();
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+                return View();
+            }
+
+
+            else
+
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+
+
+            return RedirectToAction("login", "home");
+
+           
         }
 
         // POST: accounts/Create

@@ -24,16 +24,47 @@ namespace project2.Controllers
         // GET: articles1
         public async Task<IActionResult> Index()
         {
-              return View(await _context.article.ToListAsync());
-        }
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+  return View(await _context.article.ToListAsync());
+    
+            }
 
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+
+          
+    }
 
 
 
         // GET: articles1/Create
         public IActionResult Create()
         {
-            return View();
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+  return View();
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+          
         }
 
         // POST: articles1/Create
@@ -73,73 +104,92 @@ namespace project2.Controllers
         // GET: articles1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.article == null)
+
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
             {
-                return NotFound();
-            }
+                if (id == null || _context.article == null)
+                {
+                    return NotFound();
+                }
 
-            var article = await _context.article
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-
-
-
-            List<comments> comments = new List<comments>();
-
-
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-            string sql;
-            sql = "select * from comments where articleid =" + article.Id;
-            SqlCommand comm = new SqlCommand(sql, conn);
-
-            conn.Open();
+                var article = await _context.article
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (article == null)
+                {
+                    return NotFound();
+                }
 
 
 
-            SqlDataReader reader = comm.ExecuteReader();
+
+                List<comments> comments = new List<comments>();
 
 
-            while (reader.Read())
-            {
+                SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+                string sql;
+                sql = "select * from comments where articleid =" + article.Id;
+                SqlCommand comm = new SqlCommand(sql, conn);
+
+                conn.Open();
 
 
 
-                comments.Add(new comments
+                SqlDataReader reader = comm.ExecuteReader();
+
+
+                while (reader.Read())
                 {
 
-                    Id = (int)reader["Id"],
-                    Date = (DateTime)reader["Date"],
-                    comment = (string)reader["comment"],
-                    articleid = (int)reader["articleid"],
-                    article = article
+
+
+                    comments.Add(new comments
+                    {
+
+                        Id = (int)reader["Id"],
+                        Date = (DateTime)reader["Date"],
+                        comment = (string)reader["comment"],
+                        articleid = (int)reader["articleid"],
+                        article = article
 
 
 
-                });
+                    });
 
 
+
+                }
+
+
+
+                reader.Close();
+                conn.Close();
+
+                ViewData["test"] = comments;
+
+
+
+
+
+
+
+
+                return View(article);
 
             }
 
 
+            else { 
+            HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
 
-            reader.Close();
-            conn.Close();
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+      
+}
 
-            ViewData["test"] = comments;
-
-
-
-
-
-
-
-
-            return View(article);
         }
 
 

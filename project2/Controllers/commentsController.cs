@@ -21,15 +21,38 @@ namespace project2.Controllers
 
         // GET: comments
         public async Task<IActionResult> Index()
+
+
         {
-            var project2Context = _context.comments.Include(c => c.article);
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {   var project2Context = _context.comments.Include(c => c.article);
             return View(await project2Context.ToListAsync());
+
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+
+
+
+         
         }
 
         // GET: comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.comments == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+  if (id == null || _context.comments == null)
             {
                 return NotFound();
             }
@@ -43,13 +66,41 @@ namespace project2.Controllers
             }
 
             return View(comments);
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+
+          
         }
 
         // GET: comments/Create
         public IActionResult Create()
         {
-            ViewData["articleid"] = new SelectList(_context.article, "Id", "Id");
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {  ViewData["articleid"] = new SelectList(_context.article, "Id", "Id");
             return View();
+
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+          
         }
 
         // POST: comments/Create

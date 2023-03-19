@@ -32,20 +32,41 @@ namespace project2.Controllers
 
 
             else
-                return RedirectToAction("login", "home");
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
 
 
         }
 
         public IActionResult Index()
         {
-            return View();
+
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+
+
+
+                return View();
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -93,9 +114,7 @@ namespace project2.Controllers
             return View(li);
 
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
+       
 
         public IActionResult logout()
         {
@@ -105,8 +124,8 @@ namespace project2.Controllers
 
             HttpContext.Response.Cookies.Delete("username");
             HttpContext.Response.Cookies.Delete("role");
-
-            return RedirectToAction("login", "Home");
+           
+            return RedirectToAction("login", "home");
 
         }
 
@@ -180,8 +199,8 @@ namespace project2.Controllers
                 if (ro == "customer")
                 {
 
-                    return RedirectToAction("customerhome", "Home");
-                }
+                    return RedirectToAction("login", "Home");
+                }   
                 else
                 {
                     return RedirectToAction("adminhome", "Home");

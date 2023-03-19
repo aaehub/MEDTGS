@@ -22,7 +22,22 @@ namespace project2.Controllers
         // GET: reports
         public async Task<IActionResult> Index()
         {
-              return View(await _context.report.ToListAsync());
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+   return View(await _context.report.ToListAsync());
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+         
         }
 
         // GET: reports/Details/5
@@ -46,7 +61,22 @@ namespace project2.Controllers
         // GET: reports/Create
         public IActionResult Create()
         {
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
             return View();
+            }
+
+
+            else
+                HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("role");
+
+            HttpContext.Response.Cookies.Delete("username");
+            HttpContext.Response.Cookies.Delete("role");
+            return RedirectToAction("login", "home");
+
         }
 
         // POST: reports/Create
