@@ -32,7 +32,10 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @if ((string)ViewData["role"] == "admin")
+    {
+        <a asp-action="Index">Back to List</a>
+    }
 </div>
 
 @section Scripts {

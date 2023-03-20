@@ -61,21 +61,15 @@ namespace project2.Controllers
         // GET: reports/Create
         public IActionResult Create()
         {
-            string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
-            {
+
+            ViewData["role"] = HttpContext.Session.GetString("role");
+
+
             return View();
-            }
+           
 
 
-            else
-                HttpContext.Session.Remove("Id");
-            HttpContext.Session.Remove("username");
-            HttpContext.Session.Remove("role");
-
-            HttpContext.Response.Cookies.Delete("username");
-            HttpContext.Response.Cookies.Delete("role");
-            return RedirectToAction("login", "home");
+   
 
         }
 
