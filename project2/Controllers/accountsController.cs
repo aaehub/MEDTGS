@@ -24,6 +24,36 @@ namespace project2.Controllers
             return View();
         }
 
+        public async Task<IActionResult> search()
+        {
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
+            {
+
+
+                List<article> brItems = new List<article>();
+
+                return View(brItems);
+
+            }
+            else {
+                 return RedirectToAction("login", "home");
+
+            }
+
+
+
+        }
+
+
+        // POST: items/search
+        [HttpPost]
+        public async Task<IActionResult> Search(string s)
+        {
+           
+            var brItems = await _context.article.FromSqlRaw("select * from accounts where username LIKE '%" + s + "%' ").ToListAsync();
+            return View(brItems);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> register([Bind("username,email,password,gender,role,Date")] accounts myusers)
@@ -268,7 +298,24 @@ namespace project2.Controllers
             var accounts = await _context.accounts.FindAsync(id);
             if (accounts != null)
             {
-                _context.accounts.Remove(accounts);
+                var builder = WebApplication.CreateBuilder();
+                string conStr = builder.Configuration.GetConnectionString("project2Context");
+                SqlConnection conn1 = new SqlConnection(conStr);
+
+
+                string sql;
+                sql = "delete  from comments where accountid = " + id + " ";
+                SqlCommand comm = new SqlCommand(sql, conn1);
+                conn1.Open();
+                comm.ExecuteNonQuery();
+
+
+  _context.accounts.Remove(accounts);
+
+               
+
+                conn1.Close();
+              
             }
             
             await _context.SaveChangesAsync();

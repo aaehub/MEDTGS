@@ -17,7 +17,7 @@ namespace project2.Controllers
 
         public async Task<IActionResult> adminhome()
         {
-            ViewData["name"] = HttpContext.Session.GetString("name");
+            
 
 
 
@@ -43,29 +43,7 @@ namespace project2.Controllers
 
         }
 
-        public IActionResult Index()
-        {
-
-            string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
-            {
-
-
-
-                return View();
-            }
-
-
-            else
-                HttpContext.Session.Remove("Id");
-            HttpContext.Session.Remove("username");
-            HttpContext.Session.Remove("role");
-
-            HttpContext.Response.Cookies.Delete("username");
-            HttpContext.Response.Cookies.Delete("role");
-            return RedirectToAction("login", "home");
-        }
-
+     
       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -76,7 +54,7 @@ namespace project2.Controllers
 
         public async Task<IActionResult> customerhome()
         {
-
+            
 
 
             List<article> li = new List<article>();
@@ -199,7 +177,7 @@ namespace project2.Controllers
                 if (ro == "customer")
                 {
 
-                    return RedirectToAction("login", "Home");
+                    return RedirectToAction("customerhome", "Home");
                 }   
                 else
                 {

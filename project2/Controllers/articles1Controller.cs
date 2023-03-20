@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using project2.Data;
 using project2.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace project2.Controllers
 {
@@ -21,14 +22,42 @@ namespace project2.Controllers
             _context = context;
         }
 
+
+       
+
+        public async Task<IActionResult> search()
+        {
+
+            ViewData["role"]= HttpContext.Session.GetString("role");
+            List<article> brItems = new List<article>();
+
+            return View(brItems);
+
+
+
+           
+
+        }
+
+
+        // POST: items/search
+        [HttpPost]
+        public async Task<IActionResult> Search(string s)
+        {
+            ViewData["role"] = HttpContext.Session.GetString("role");
+            var brItems = await _context.article.FromSqlRaw("select * from article where topic LIKE '%" + s + "%' ").ToListAsync();
+            return View(brItems);
+        }
+
+
         // GET: articles1
         public async Task<IActionResult> Index()
         {
             string ss = HttpContext.Session.GetString("role");
             if (ss == "admin")
             {
-  return View(await _context.article.ToListAsync());
-    
+                return View(await _context.article.ToListAsync());
+
             }
 
 
@@ -41,8 +70,8 @@ namespace project2.Controllers
             HttpContext.Response.Cookies.Delete("role");
             return RedirectToAction("login", "home");
 
-          
-    }
+
+        }
 
 
 
@@ -52,7 +81,7 @@ namespace project2.Controllers
             string ss = HttpContext.Session.GetString("role");
             if (ss == "admin")
             {
-  return View();
+                return View();
             }
 
 
@@ -64,7 +93,7 @@ namespace project2.Controllers
             HttpContext.Response.Cookies.Delete("username");
             HttpContext.Response.Cookies.Delete("role");
             return RedirectToAction("login", "home");
-          
+
         }
 
         // POST: articles1/Create
@@ -105,92 +134,83 @@ namespace project2.Controllers
         public async Task<IActionResult> Details(int? id)
         {
 
-            string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            
+            ViewData["message"] = HttpContext.Session.GetString("role");
+
+            if (id == null || _context.article == null)
             {
-                if (id == null || _context.article == null)
+                return NotFound();
+            }
+
+            var article = await _context.article
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+
+
+
+            List<comments> comments = new List<comments>();
+
+
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            string sql;
+            sql = "select * from comments where articleid =" + article.Id;
+            SqlCommand comm = new SqlCommand(sql, conn);
+
+            conn.Open();
+
+
+
+            SqlDataReader reader = comm.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+
+
+
+                comments.Add(new comments
                 {
-                    return NotFound();
-                }
 
-                var article = await _context.article
-                    .FirstOrDefaultAsync(m => m.Id == id);
-                if (article == null)
-                {
-                    return NotFound();
-                }
+                    Id = (int)reader["Id"],
+                    Date = (DateTime)reader["Date"],
+                    comment = (string)reader["comment"],
+                    articleid = (int)reader["articleid"],
+                    article = article
 
 
 
-
-                List<comments> comments = new List<comments>();
-
-
-                SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-                string sql;
-                sql = "select * from comments where articleid =" + article.Id;
-                SqlCommand comm = new SqlCommand(sql, conn);
-
-                conn.Open();
+                });
 
 
-
-                SqlDataReader reader = comm.ExecuteReader();
-
-
-                while (reader.Read())
-                {
-
-
-
-                    comments.Add(new comments
-                    {
-
-                        Id = (int)reader["Id"],
-                        Date = (DateTime)reader["Date"],
-                        comment = (string)reader["comment"],
-                        articleid = (int)reader["articleid"],
-                        article = article
-
-
-
-                    });
-
-
-
-                }
-
-
-
-                reader.Close();
-                conn.Close();
-
-                ViewData["test"] = comments;
-
-
-
-
-
-
-
-
-                return View(article);
 
             }
 
 
-            else { 
-            HttpContext.Session.Remove("Id");
-            HttpContext.Session.Remove("username");
-            HttpContext.Session.Remove("role");
 
-            HttpContext.Response.Cookies.Delete("username");
-            HttpContext.Response.Cookies.Delete("role");
-            return RedirectToAction("login", "home");
-      
-}
+            reader.Close();
+            conn.Close();
+
+            ViewData["test"] = comments;
+
+
+         
+
+
+
+            return View(article);
+
+
+
+
 
         }
+    
+
+        
 
 
 
@@ -312,6 +332,7 @@ namespace project2.Controllers
         // GET: articles1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            
             if (id == null || _context.article == null)
             {
                 return NotFound();
@@ -339,7 +360,24 @@ namespace project2.Controllers
             var article = await _context.article.FindAsync(id);
             if (article != null)
             {
+
+                var builder = WebApplication.CreateBuilder();
+                string conStr = builder.Configuration.GetConnectionString("project2Context");
+                SqlConnection conn1 = new SqlConnection(conStr);
+
+
+                string sql;
+                sql = "delete  from comments where articleid = " + id + " ";
+                SqlCommand comm = new SqlCommand(sql, conn1);
+                conn1.Open();
+                comm.ExecuteNonQuery();
+
+
+
+
                 _context.article.Remove(article);
+                
+                conn1.Close();
             }
             
             await _context.SaveChangesAsync();

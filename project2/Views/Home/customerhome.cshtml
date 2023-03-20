@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<project2.Models.article>
 
-@{
-    ViewData["Title"] = "View";
-}
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,12 +35,15 @@
     </a>
 </div
 
+
+
+
 <div class="container-fluid">
     <div class="row">
 
 
         <di class="hero-unit"></di>
-        <h1> hi @ViewData["name"]</h1>
+       
      
 
         @foreach (var item in Model)
@@ -58,13 +58,13 @@
                         <img class="card-img-top" src="~/images/@item.imagefilename" height="150" />
                         @item.Id
                     </div>
-                    <div class="card-footer">
+                    <div   class="card-footer">
 
 
 
 
 
-                        <a asp-controller="articles1" asp-action="Details" asp-route-id="@item.Id">details </a>|
+                        <a  asp-controller="articles1" asp-action="Details" asp-route-id="@item.Id">details </a>
                        
 
 
