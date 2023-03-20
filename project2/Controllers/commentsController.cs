@@ -25,7 +25,7 @@ namespace project2.Controllers
 
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {   var project2Context = _context.comments.Include(c => c.article);
             return View(await project2Context.ToListAsync());
 
@@ -50,7 +50,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
   if (id == null || _context.comments == null)
             {
@@ -85,7 +85,7 @@ namespace project2.Controllers
         public IActionResult Create()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {  ViewData["articleid"] = new SelectList(_context.article, "Id", "Id");
             return View();
 
@@ -110,31 +110,45 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Date,comment,articleid,accountid")] comments comments)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(comments);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
-            return View(comments);
+          
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(comments);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
+               return View(comments);
+            
         }
 
         // GET: comments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.comments == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin" || ss != "expert")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            var comments = await _context.comments.FindAsync(id);
-            if (comments == null)
+            else
             {
-                return NotFound();
+
+                if (id == null || _context.comments == null)
+                {
+                    return NotFound();
+                }
+
+                var comments = await _context.comments.FindAsync(id);
+                if (comments == null)
+                {
+                    return NotFound();
+                }
+                ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
+                return View(comments);
             }
-            ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
-            return View(comments);
         }
 
         // POST: comments/Edit/5
@@ -144,33 +158,44 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Date,comment,articleid,accountid")] comments comments)
         {
-            if (id != comments.Id)
+
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin" || ss != "expert")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            if (ModelState.IsValid)
+            else
             {
-                try
+                if (id != comments.Id)
                 {
-                    _context.Update(comments);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                if (ModelState.IsValid)
                 {
-                    if (!commentsExists(comments.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(comments);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!commentsExists(comments.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
+                return View(comments);
             }
-            ViewData["articleid"] = new SelectList(_context.article, "Id", "Id", comments.articleid);
-            return View(comments);
         }
 
         // GET: comments/Delete/5

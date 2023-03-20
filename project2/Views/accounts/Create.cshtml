@@ -29,15 +29,34 @@
             </div>
             <div class="form-group">
                 <label asp-for="gender" class="control-label"></label>
-                <input asp-for="gender" class="form-control" />
-                <span asp-validation-for="gender" class="text-danger"></span>
+
+                <div class="checkbox">
+                    <label> <input type="radio" asp-for="gender" value="male" /> male</label>
+                </div>
+                <div class="checkbox">
+                    <label> <input type="radio" asp-for="gender" value="female" />female</label>
+                </div>
+       
+            
+            
             </div>
-            <div class="form-group">
-                <label asp-for="role" class="control-label"></label>
-                <input asp-for="role" class="form-control" />
+            <label asp-for="role" class="control-label"></label>
+            <div class="checkbox">
+                <label> <input type="radio" asp-for="role" value="admin" /> admin</label>
+            </div>
+            <div class="checkbox">
+                <label> <input type="radio" asp-for="role" value="customer" />customer</label>
+            </div>
+            <div class="checkbox">
+                <label> <input type="radio" asp-for="role" value="expert" />expert</label>
+
                 <span asp-validation-for="role" class="text-danger"></span>
             </div>
+
             <div class="form-group">
+
+
+
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
@@ -45,6 +64,7 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            @ViewData["message"]
         </form>
     </div>
 </div>

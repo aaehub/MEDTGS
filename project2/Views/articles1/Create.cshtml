@@ -40,7 +40,7 @@
                 <input type="file" asp-for="imagefilename" class="form-control" />
                 <span asp-validation-for="imagefilename" class="text-danger"></span>
             </div>
-
+            <center> <img src="~/images/@Model.imagefilename" height="220"> </center>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

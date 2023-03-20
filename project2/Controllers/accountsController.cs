@@ -27,11 +27,11 @@ namespace project2.Controllers
         public async Task<IActionResult> search()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
 
 
-                List<article> brItems = new List<article>();
+                List<accounts> brItems = new List<accounts>();
 
                 return View(brItems);
 
@@ -44,15 +44,20 @@ namespace project2.Controllers
 
 
         }
-
+     
 
         // POST: items/search
         [HttpPost]
         public async Task<IActionResult> Search(string s)
         {
-           
-            var brItems = await _context.article.FromSqlRaw("select * from accounts where username LIKE '%" + s + "%' ").ToListAsync();
-            return View(brItems);
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin" || ss == "expert")
+            {
+
+                var brItems = await _context.accounts.FromSqlRaw("select * from accounts where username LIKE '%" + s + "%' ").ToListAsync();
+                return View(brItems);
+            }
+            else return RedirectToAction("login","home");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,8 +66,9 @@ namespace project2.Controllers
 
 
 
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-            string sql;
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
+            SqlConnection conn = new SqlConnection(conStr); string sql;
             conn.Open();
 
             Boolean flage = false;
@@ -115,7 +121,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Index()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
 
 
@@ -139,7 +145,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
 
 
@@ -195,24 +201,88 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,username,email,password,gender,role,Date")] accounts accounts)
+        public async Task<IActionResult> Create([Bind("Id,username,email,password,gender,role,Date")] accounts myusers)
         {
-            if (ModelState.IsValid)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin")
             {
-                _context.Add(accounts);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                var builder = WebApplication.CreateBuilder();
+                string conStr = builder.Configuration.GetConnectionString("project2Context");
+                SqlConnection conn = new SqlConnection(conStr); string sql;
+                conn.Open();
+
+                Boolean flage = false;
+                sql = "select * from accounts where username = '" + myusers.username + "'";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.Read())
+                {
+                    flage = true;
+                }
+                reader.Close();
+
+
+
+                if (flage == true)
+                {
+                    ViewData["message"] = "name already exists";
+                    conn.Close();
+
+                }
+                else
+                {
+
+
+
+
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(myusers);
+                        await _context.SaveChangesAsync();
+                        conn.Close();
+                        return RedirectToAction(nameof(Index));
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+                }
+
+                conn.Close();
+
+                return View(myusers);
             }
-            return View(accounts);
+            else {
+                return RedirectToAction("login", "home");        
+                    }
         }
 
         // GET: accounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.accounts == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
+
+            else { 
+
+
+                if (id == null || _context.accounts == null)
+            {
+                return NotFound(); }
+
 
             var accounts = await _context.accounts.FindAsync(id);
             if (accounts == null)
@@ -220,6 +290,7 @@ namespace project2.Controllers
                 return NotFound();
             }
             return View(accounts);
+        }
         }
 
         // POST: accounts/Edit/5
@@ -232,58 +303,79 @@ namespace project2.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,username,email,password,gender,role,Date")] accounts accounts )
         {
 
-            accounts.Date = DateTime.Now;
-
-            if (id != accounts.Id)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
+                accounts.Date = DateTime.Now;
 
-                    ModelState.Remove("Date");
-                    _context.Update(accounts);
-                   
-                    await _context.SaveChangesAsync();
-                   
-                    
-
-                }
-                catch (DbUpdateConcurrencyException)
+                if (id != accounts.Id)
                 {
-                    if (!accountsExists(accounts.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(accounts);
-        }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+
+                        ModelState.Remove("Date");
+                        _context.Update(accounts);
+
+                        await _context.SaveChangesAsync();
+
+
+
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!accountsExists(accounts.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(accounts);
+            } }
 
         // GET: accounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.accounts == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            var accounts = await _context.accounts
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (accounts == null)
+            else
             {
-                return NotFound();
-            }
 
-            return View(accounts);
+                if (id == null || _context.accounts == null)
+
+                {
+                    return NotFound();
+                }
+
+                var accounts = await _context.accounts
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (accounts == null)
+                {
+                    return NotFound();
+                }
+
+                return View(accounts);
+            }
         }
 
         // POST: accounts/Delete/5
@@ -291,35 +383,46 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.accounts == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
             {
-                return Problem("Entity set 'project2Context.accounts'  is null.");
+
+                return RedirectToAction("login", "home");
             }
-            var accounts = await _context.accounts.FindAsync(id);
-            if (accounts != null)
+
+            else
             {
-                var builder = WebApplication.CreateBuilder();
-                string conStr = builder.Configuration.GetConnectionString("project2Context");
-                SqlConnection conn1 = new SqlConnection(conStr);
+
+                if (_context.accounts == null)
+                {
+                    return Problem("Entity set 'project2Context.accounts'  is null.");
+                }
+                var accounts = await _context.accounts.FindAsync(id);
+                if (accounts != null)
+                {
+                    var builder = WebApplication.CreateBuilder();
+                    string conStr = builder.Configuration.GetConnectionString("project2Context");
+                    SqlConnection conn1 = new SqlConnection(conStr);
 
 
-                string sql;
-                sql = "delete  from comments where accountid = " + id + " ";
-                SqlCommand comm = new SqlCommand(sql, conn1);
-                conn1.Open();
-                comm.ExecuteNonQuery();
+                    string sql;
+                    sql = "delete  from comments where accountid = " + id + " ";
+                    SqlCommand comm = new SqlCommand(sql, conn1);
+                    conn1.Open();
+                    comm.ExecuteNonQuery();
 
 
-  _context.accounts.Remove(accounts);
+                    _context.accounts.Remove(accounts);
 
-               
 
-                conn1.Close();
-              
+
+                    conn1.Close();
+
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool accountsExists(int id)

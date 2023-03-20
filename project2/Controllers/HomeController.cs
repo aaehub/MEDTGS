@@ -22,7 +22,7 @@ namespace project2.Controllers
 
 
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
 
 

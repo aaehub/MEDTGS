@@ -38,12 +38,25 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.imagefilename)
         </dt>
+     
+           @if ((string)ViewData["role"] == "admin" || (string)ViewData["role"]=="expert")
+                    {
+
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.imagefilename)
         </dd>
-        
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit |</a>
+
+            <a asp-action="Delete" asp-route-id="@Model.Id">Delete |</a>
+                    }
+
+        <center> <img src="~/images/@Model.imagefilename" height="220"> </center>
          <form  asp-action="CreateComment">
       
+
+
+
+
         <div class="form-group">
             <label  for="comment-text">Example textarea</label>
          <textarea class="form-control" name="commenttext" rows="3"></textarea>
@@ -55,11 +68,14 @@
 
         </form>
         
-        <ul>@foreach (var std in @ViewData["test"] as IList<comments>)
+        <ul>
+            @foreach (var std in @ViewData["test"] as IList<s>)
             {
+                
                 <li>
-                    @std.comment
+                    @std.comment @std.Date  @std.username
                 </li>
+            
             }</ul>
   
       
@@ -74,7 +90,7 @@
   
 @{
 
-    if (ViewData["massage"] == "admin")
+        if (ViewData["massage"] == "admin" || ViewData["massage"] == "expert")
     {
         
     

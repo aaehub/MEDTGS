@@ -60,14 +60,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imagefilename)
-            </td>
+                <td>
+
+
+                    <img src="~/images/@item.imagefilename" height="220">
+
+                </td>
            
                <td>
-        
-            @if ((string)ViewData["role"] == "admin"){  
-             
+
+                    @if ((string)ViewData["role"] == "admin" || (string)ViewData["role"]=="expert")
+                    {
+
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a> 
                 
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete |</a>
@@ -80,3 +84,8 @@
 }
     </tbody>
 </table>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

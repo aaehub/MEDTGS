@@ -4,9 +4,8 @@ using System.Xml.Linq;
 
 namespace project2.Models
 {
-    public class comments
+    public class s
     {
-
         public int Id { get; set; }
 
 
@@ -27,8 +26,9 @@ namespace project2.Models
         [Display(Name = "article")]
         public int? articleid { get; set; }
         public int? accountid { get; set; }
-       
+
         public virtual article article { get; set; }
-     
+
+        public string username { get; internal set; }
     }
 }

@@ -23,7 +23,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Index()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
    return View(await _context.report.ToListAsync());
             }
@@ -39,28 +39,42 @@ namespace project2.Controllers
             return RedirectToAction("login", "home");
          
         }
-
-        // GET: reports/Details/5
-        public async Task<IActionResult> Details(int? id)
+       
+            // GET: reports/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.report == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss == "admin" || ss == "expert")
             {
-                return NotFound();
+
+                if (id == null || _context.report == null)
+                {
+                    return NotFound();
+                }
+
+                var report = await _context.report
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (report == null)
+                {
+                    return NotFound();
+                }
+
+                return View(report);
             }
 
-            var report = await _context.report
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (report == null)
+            else
             {
-                return NotFound();
-            }
 
-            return View(report);
+                
+
+                return RedirectToAction("login", "home");
+            }
         }
 
         // GET: reports/Create
         public IActionResult Create()
         {
+
 
             ViewData["role"] = HttpContext.Session.GetString("role");
 
@@ -114,35 +128,46 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,title,date,content,isSolved")] report report)
         {
-            if (id != report.Id)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin" || ss != "expert")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            if (ModelState.IsValid)
+            else
             {
-                try
+
+                if (id != report.Id)
                 {
-                    ModelState.Remove("title");
-                    ModelState.Remove("date");
-                    ModelState.Remove("title");
-                    _context.Update(report);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                if (ModelState.IsValid)
                 {
-                    if (!reportExists(report.Id))
+                    try
                     {
-                        return NotFound();
+                        ModelState.Remove("title");
+                        ModelState.Remove("date");
+                        ModelState.Remove("title");
+                        _context.Update(report);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!reportExists(report.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(report);
             }
-            return View(report);
         }
 
         // GET: reports/Delete/5

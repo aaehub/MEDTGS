@@ -28,6 +28,7 @@ namespace project2.Controllers
         public async Task<IActionResult> search()
         {
 
+
             ViewData["role"]= HttpContext.Session.GetString("role");
             List<article> brItems = new List<article>();
 
@@ -54,7 +55,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Index()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
                 return View(await _context.article.ToListAsync());
 
@@ -79,7 +80,7 @@ namespace project2.Controllers
         public IActionResult Create()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin")
+            if (ss == "admin" || ss == "expert")
             {
                 return View();
             }
@@ -103,19 +104,40 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,imagefilename")] article article)
         {
-            if (ModelState.IsValid)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
             {
-                _context.Add(article);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("login", "home");
             }
-            return View(article);
+
+            else
+            {
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(article);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(article);
+            }
         }
 
         // GET: articles1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.article == null)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin")
+            {
+
+                return RedirectToAction("login", "home");
+            }
+
+            else
+            {
+
+                if (id == null || _context.article == null)
             {
                 return NotFound();
             }
@@ -125,7 +147,7 @@ namespace project2.Controllers
             {
                 return NotFound();
             }
-            return View(article);
+            return View(article);}
         }
 
 
@@ -152,38 +174,48 @@ namespace project2.Controllers
 
 
 
-            List<comments> comments = new List<comments>();
+            List<s> comments = new List<s>();
+          
 
-
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
+            SqlConnection conn = new SqlConnection(conStr); 
             string sql;
-            sql = "select * from comments where articleid =" + article.Id;
+            sql = "sELECT comments.*, accounts.username as username FROM accounts JOIN comments ON accounts.Id=comments.accountid where comments.articleid =" + article.Id;
             SqlCommand comm = new SqlCommand(sql, conn);
+           
+            
 
-            conn.Open();
+               conn.Open(); 
 
 
 
             SqlDataReader reader = comm.ExecuteReader();
-
+           
 
             while (reader.Read())
             {
 
 
 
-                comments.Add(new comments
+                comments.Add(new s
                 {
 
                     Id = (int)reader["Id"],
                     Date = (DateTime)reader["Date"],
                     comment = (string)reader["comment"],
                     articleid = (int)reader["articleid"],
+                    username = (string)reader["username"],
+                    accountid = (int)reader["accountid"],
+                     
                     article = article
+                   
+                
 
 
+            });
 
-                });
+               
 
 
 
@@ -194,10 +226,10 @@ namespace project2.Controllers
             reader.Close();
             conn.Close();
 
-            ViewData["test"] = comments;
+            ViewData["test"] =  comments ;
+           
 
 
-         
 
 
 
@@ -301,32 +333,45 @@ namespace project2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,imagefilename")] article article)
         {
-            if (id != article.Id)
+            string ss = HttpContext.Session.GetString("role");
+            if (ss != "admin" || ss!= "expert")
             {
-                return NotFound();
+
+                return RedirectToAction("login", "home");
             }
 
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(article);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!articleExists(article.Id))
+
+               
+
+                    if (id != article.Id)
                     {
                         return NotFound();
                     }
-                    else
+
+                    if (ModelState.IsValid)
                     {
-                        throw;
+                        try
+                        {
+                            _context.Update(article);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!articleExists(article.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
                     }
+                    return View(article);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(article);
         }
 
         // GET: articles1/Delete/5
