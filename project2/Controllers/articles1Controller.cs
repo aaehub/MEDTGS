@@ -150,10 +150,16 @@ namespace project2.Controllers
             return View(article);}
         }
 
+        public async Task<IActionResult> add(int? id) {  
+            
+            return View();}
 
+      
+        
+        
 
-        // GET: articles1/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: articles1/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
 
             
@@ -227,7 +233,51 @@ namespace project2.Controllers
             conn.Close();
 
             ViewData["test"] =  comments ;
-           
+
+
+
+
+
+
+
+
+
+            var builder2 = WebApplication.CreateBuilder();
+            string conStr2 = builder.Configuration.GetConnectionString("project2Context");
+            SqlConnection conn2 = new SqlConnection(conStr2);
+            string sql2;
+            sql2 = "SELECT * FROM images where articleid = " + id;
+            SqlCommand comm2 = new SqlCommand(sql2, conn2);
+
+            List<images> li = new List<images>();
+
+
+
+
+            conn2.Open();
+            SqlDataReader reader2 = comm2.ExecuteReader();
+
+            while (reader2.Read())
+            {
+                li.Add(new images
+                {
+
+                    Id = (int)reader2["Id"],
+                    image = (string)reader2["image"],
+                    articleid = (int)reader2["articleid"],
+
+                });
+
+            }
+
+            reader2.Close();
+            conn2.Close();
+            ViewData["images"] = li;
+
+
+
+
+
 
 
 
