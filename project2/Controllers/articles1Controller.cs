@@ -150,13 +150,6 @@ namespace project2.Controllers
             return View(article);}
         }
 
-        public async Task<IActionResult> add(int? id) {  
-            
-            return View();}
-
-      
-        
-        
 
             // GET: articles1/Details/5
             public async Task<IActionResult> Details(int? id)
