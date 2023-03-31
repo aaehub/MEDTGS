@@ -43,11 +43,12 @@ namespace project2.Controllers
             }
             reader.Close();
             conn1.Close();
-            return li;
+            return View(li);
         }
 
-
-
-
+        private IEnumerable<article> View(List<article> li)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
