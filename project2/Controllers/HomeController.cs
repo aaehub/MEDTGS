@@ -59,7 +59,7 @@ namespace project2.Controllers
 
             List<article> li = new List<article>();
 
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
             string sql;
             sql = "select * from article order by Id";
             SqlCommand comm = new SqlCommand(sql, conn);
@@ -142,7 +142,7 @@ namespace project2.Controllers
             string conStr = builder.Configuration.GetConnectionString("project2");
 
 
-            SqlConnection conn1 = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            SqlConnection conn1 = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
             string sql;
             sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
             SqlCommand comm = new SqlCommand(sql, conn1);
@@ -155,7 +155,7 @@ namespace project2.Controllers
                 string na1 = (string)reader["username"];
 
                 string ro = (string)reader["role"];
-
+                
 
                 HttpContext.Session.SetString("Id", id);
                 HttpContext.Session.SetString("name", na1);
