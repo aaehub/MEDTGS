@@ -1,0 +1,249 @@
+
+body{
+    height: 100%;
+    background-color:aliceblue;
+}
+.main{
+    background-color:aliceblue;
+}
+.navbar{
+    border: solid;
+    padding-bottom: 60px;
+    background-color: black;
+}
+
+.nav ul li {
+    list-style-type: none;
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.nav ul li a{
+    text-decoration: none;
+    border: solid white;
+    padding: 3px;
+    color: white;
+}
+.nav ul li :hover{
+    color: grey;
+}
+.Content{
+   background-color: aliceblue;
+   width: 90%;
+   margin-left :5%;
+   margin-right:5%;
+   padding : 0,30px,30px,30px;
+   
+}
+.Content img{
+    width: 50%;
+    height: 30%;
+}
+.Content ul li{
+
+    text-align:center;
+    list-style-type:none;
+    margin:30px;
+    border:solid;
+    text-decoration:none;
+    padding:30px
+}
+
+    .Commentbox{
+    text-align: center;
+    border-top: solid;
+    padding-top: 30px;
+    
+}
+.Commentbox input{
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+    height: 100px;
+    display: block;
+
+}
+.Commentbox table{
+    border: 2px solid;
+    width: 100%;
+    margin-top: 30px;
+    
+}
+.Comments{
+    padding-top: 30px;
+    margin-top: 30px;
+    
+}
+.AList{
+    text-align: left;
+    width: 60%;
+    border: solid;
+    padding: 20% ;
+    
+    
+}
+.AList ul li  {
+    
+    list-style-type: none;
+    
+}
+.AList ul li img{
+    width: 10%;
+    height: 10%;
+    display: inline;
+    float: left;
+}
+AList ul li h1{
+    display: inline;
+
+}
+AList ul li p{
+    display: inline;
+    width: auto;
+}
+footer{
+    border-top: 3px solid black;
+    min-height: 100%;
+    margin-bottom: -142px;
+    margin-top: 30px;
+    color: white;
+    background-color: black;
+}
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+        background-color: red;
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+    }
+
+/* Full-width input fields */
+RegisterForm {
+    padding: 16px;
+}
+
+/* Full-width input fields */
+.RegisterForm input[type=text], input[type=password] {
+    width: 95%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+    /* Add a background color when the inputs get focus */
+    .RegisterForm input[type=text]:focus, input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+.RegisterForm button:hover {
+    opacity: 1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn {
+    float: left;
+    width: 50%;
+}
+
+.signupbtn {
+    float: left;
+    width: 50%;
+    padding: 14px 20px;
+    background-color: #04AA6D
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 12px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 12px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

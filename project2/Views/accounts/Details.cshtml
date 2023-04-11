@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<div style="margin-top:20px;">
+    <a asp-action="Index">Back to List</a>
+</div>
 <h1>Details</h1>
 
 <div>
@@ -48,9 +50,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div style="text-align:center;margin-bottom:30px;margin-top:30px;">
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
+    
 </div>
 @section Scripts {
     @{

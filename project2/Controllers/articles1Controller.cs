@@ -305,7 +305,7 @@ namespace project2.Controllers
            
 
           
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
+            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
             string sql;
 
 

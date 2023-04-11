@@ -3,27 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - project2</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/project2.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - MTGS</title>
+    <link rel="stylesheet" href="~/css/css.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" >project2</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                      
-
-
-
-
+        <div class="navbar">
+            <div class="logo"><img src="~/images/logo-white.png" style="height: 60px; width: 80px; float: left;margin-left: 10px; " alt=""></div>
+            <div class="nav">
+                                          
+               <ul>                     
                         @{
 
                             var c=Context.Session.GetString("role");
@@ -31,142 +23,117 @@
                         if ( (string)c == "admin") { 
 
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="adminhome">Home</a>
+                        <li>
+                                <a asp-area="" asp-controller="home" asp-action="adminhome"><i class="fa fa-home"></i> Home</a>
                         </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="articles1" asp-action="search">search article</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="accounts" asp-action="search">search user</a>
-                                </li>
-
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="articles1" asp-action="Index">articles</a>
-                        </li>
-
-
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="reports" asp-action="Index">reports</a>
-                        </li>
-
-
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="accounts" asp-action="Index">accounts</a>
-                        </li>
-
-
-
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="comments" asp-action="Index">comments</a>
-                                </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            }else if ((string)c == "expert"){
-
-
-
-
-
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="adminhome">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="articles1" asp-action="search">search article</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="accounts" asp-action="search">search user</a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="articles1" asp-action="Index">articles</a>
-                                </li>
-
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="reports" asp-action="Index">reports</a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="comments" asp-action="Index">comments</a>
-                                </li>
-
-
-
-
-
-
-                            }else
-                            {
-
-
-                             <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="customerhome">Home</a>
-                        </li>
-
-
-                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="articles1" asp-action="search">search</a>
-                        </li>
-
-
-
-                         
-
-                       <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="reports" asp-action="Create">report</a>
-                              </li>
                         
+                        <li>
+                                <a asp-area="" asp-controller="articles1" asp-action="Index"><i class="fa fa-book"></i> Articles</a>
+                        </li>
+
+                        <li>
+                                <a asp-area="" asp-controller="reports" asp-action="Index"><i class="fa fa-fw fa-envelope"></i> Reports</a>
+                        </li>
+
+                        <li >
+                                <a asp-area="" asp-controller="accounts" asp-action="Index"><i class="fa fa-fw fa-user"></i> Accounts</a>
+                        </li>
+
+                        <li>
+                                <a asp-area="" asp-controller="comments" asp-action="Index"><i class="fa fa-comments"></i> Comments</a>
+                        </li>
+
+
+
+
+
+                         }else if ((string)c == "expert"){
+
+                         <li>
+                                <a asp-area="" asp-controller="home" asp-action="adminhome"><i class="fa fa-home"></i> Home</a>
+                         </li>                         
+                        
+                         <li>
+                                <a asp-area="" asp-controller="articles1" asp-action="Index"><i class="fa fa-book"></i> Articles</a>
+                         </li>
+                         <li>
+                                <a asp-area="" asp-controller="reports" asp-action="Index"><i class="fa fa-fw fa-envelope"></i> Reports</a>
+                         </li>
+                         <li>
+                                <a asp-area="" asp-controller="comments" asp-action="Index"><i class="fa fa-comments"></i> Comments</a>
+                         </li>
+
+
+                        }else{
+
+                        <li>
+                                <a asp-area="" asp-controller="home" asp-action="customerhome"><i class="fa fa-home"></i> Home</a>
+                        </li>
+              
+                        <li>
+                                <a asp-area="" asp-controller="reports" asp-action="Create"><i class="fa fa-fw fa-envelope"></i> Contact us</a>
+                        </li>                        
                         }}
+
+
+                        
+                    
+                         <li style="float:right">
+                        <a onclick="openForm()"><i class="fa fa-user-circle-o"></i> Profile</a>
+                        <div class="form-popup" id="myForm">
+                            <form action="/action_page.php" class="form-container">
+                                <h1>Profile</h1>
+
+                                <label><b>User Name:</b></label>
+                                <input type="text">
+
+                                <label><b>E-mail:</b></label>
+                                <input type="text">
+                                
+                                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                            </form>
+                        </div>
+                        <a asp-area="" asp-controller="home" asp-action="logout"><i class="fa fa-close"></i> Logout</a>
+                        
+                    </li>
+                    
+                         <li style="float:right">
+                        <input name="s" class="form-control" />
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         
                         
-                     
 
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="logout">logout</a>
-                              </li>
-
+                    </li>
 
                         
                     </ul>
                 </div>
             </div>
-        </nav>
+        
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="Content">
+        
             @RenderBody()
-        </main>
+        
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 1444 - project2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 1444 - MTGS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
