@@ -295,19 +295,13 @@ namespace project2.Controllers
         {
 
 
-            
-        
+
 
             var builder = WebApplication.CreateBuilder();
-            string conStr = builder.Configuration.GetConnectionString("project2");
-
-
-           
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
+            SqlConnection conn = new SqlConnection(conStr); string sql;
 
           
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-            string sql;
-
 
             /*
              * 

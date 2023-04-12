@@ -58,9 +58,15 @@ namespace project2.Controllers
 
 
             List<article> li = new List<article>();
+           
+            
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
+            SqlConnection conn = new SqlConnection(conStr);
 
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-            string sql;
+
+
+             string sql;
             sql = "select * from article order by Id";
             SqlCommand comm = new SqlCommand(sql, conn);
 
@@ -141,12 +147,13 @@ namespace project2.Controllers
             var builder = WebApplication.CreateBuilder();
             string conStr = builder.Configuration.GetConnectionString("project2");
 
+           
+            SqlConnection conn = new SqlConnection(conStr);
 
-            SqlConnection conn1 = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"L:\\project graduation\\DB\\db2.mdf\";Integrated Security=True;Connect Timeout=30");
-            string sql;
+             string sql;
             sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
-            SqlCommand comm = new SqlCommand(sql, conn1);
-            conn1.Open();
+            SqlCommand comm = new SqlCommand(sql, conn);
+            conn.Open();
             SqlDataReader reader = comm.ExecuteReader();
 
             if (reader.Read())
@@ -162,7 +169,7 @@ namespace project2.Controllers
                 HttpContext.Session.SetString("role", ro);
 
                 reader.Close();
-                conn1.Close();
+                conn.Close();
 
 
 
