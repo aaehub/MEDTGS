@@ -302,11 +302,11 @@ namespace project2.Controllers
             string conStr = builder.Configuration.GetConnectionString("project2");
 
 
-           
 
-          
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
-            string sql;
+            SqlConnection conn = new SqlConnection(conStr);
+
+
+             string sql;
 
 
             /*

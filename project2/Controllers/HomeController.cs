@@ -59,8 +59,15 @@ namespace project2.Controllers
 
             List<article> li = new List<article>();
 
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
-            string sql;
+
+            var builder = WebApplication.CreateBuilder();
+            string conStr = builder.Configuration.GetConnectionString("project2");
+
+
+            SqlConnection conn = new SqlConnection(conStr);
+
+
+              string sql;
             sql = "select * from article order by Id";
             SqlCommand comm = new SqlCommand(sql, conn);
 
@@ -140,10 +147,12 @@ namespace project2.Controllers
 
             var builder = WebApplication.CreateBuilder();
             string conStr = builder.Configuration.GetConnectionString("project2");
+           
+
+            SqlConnection conn1 = new SqlConnection(conStr);
 
 
-            SqlConnection conn1 = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\durum\\OneDrive\\桌面\\MTGS\\db2.mdf;Integrated Security=True;Connect Timeout=30");
-            string sql;
+              string sql;
             sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
             SqlCommand comm = new SqlCommand(sql, conn1);
             conn1.Open();
