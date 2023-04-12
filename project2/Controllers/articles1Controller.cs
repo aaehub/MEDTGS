@@ -299,7 +299,7 @@ namespace project2.Controllers
         
 
             var builder = WebApplication.CreateBuilder();
-            string conStr = builder.Configuration.GetConnectionString("project2");
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
 
 
 
