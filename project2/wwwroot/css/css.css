@@ -247,3 +247,11 @@ RegisterForm {
     display: table;
     clear: both;
 }
+
+.card {
+    display:inline;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}

@@ -3,26 +3,40 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    th {
+        margin: 6px;
+    }
 
-<h1>Index</h1>
+    td {
+        margin: 6px;
+        border: solid;
+    }
+
+    a {
+        margin: 6px,6px;
+    }
+</style>
+<h1 style="border-bottom:solid;">Reports</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<center>
+<table>
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.title)
+                <p>Title</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.date)
+                <p>Date</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.content)
+                <p>Content</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isSolved)
+                <p>@Html.DisplayNameFor(model => model.isSolved)</p>
             </th>
             <th></th>
         </tr>
@@ -51,3 +65,4 @@
 }
     </tbody>
 </table>
+</center>
