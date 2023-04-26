@@ -3,81 +3,50 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">// crash layout
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </head>
-<br />
-<br />
-<br />
-<br />
-<div id="myCarousel" style="width:50% ; min-width:300px " class="carousel slide mx-auto" data-ride="carousel">
-    <div class="carousel-inner" id="demo">
-        @{
-            var counter = 0;
-        }
-        @foreach (var item in Model)
-        {
-            <div class='carousel-item   @(counter == 0 ? "active"  : String.Empty)'>
-                <center> <img src="~/images/@item.imagefilename" height="220"> </center>
-                <div class='carousel-caption mx-auto' style='top:65%; left:15%;'>
-                 <a style="text-decoration:none; color:blue; background-color:dimgray; font-size:large;"
-                   asp-controller="articles1" asp-action="details" asp-route-id="@item.Id" style='width:100px ' class='mx-auto bg-secondary '>  <br /> @item.topic  </a>
+<style>
 
-                </div>
-            </div>
-            counter++;
-        }
-    </div>
-    <a class="carousel-control-prev " href="#myCarousel" data-slide="prev">
-        <span class="carousel-control-prev-icon bg-secondary"></span>
-    </a>
-    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-        <span class="carousel-control-next-icon bg-secondary"></span>
-    </a>
-</div>
+    .cards {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 30%;
+        border-radius: 5px;
+        display:inline-block;
+    }
 
-
-
-
-<div class="container-fluid">
-    <div class="row">
-
-
-        <di class="hero-unit"></di>
-       
-     
-
-        @foreach (var item in Model)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        @item.topic
-                    </div>
-
-                    <div class="card-body">
-                        <img class="card-img-top" src="~/images/@item.imagefilename" height="150" />
-                        
-                    </div>
-                    <div   class="card-footer">
-
-
-
-
-
-                        <a  asp-controller="articles1" asp-action="Details" asp-route-id="@item.Id">details </a>
-                       
-
-
-
-                    </div>
-                </div>
-            </div>
-
-
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         }
 
-    </div>
-</div>
+    img {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .card-texts {
+        padding: 2px 16px;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+
+         <div>
+
+    @foreach (var item in Model)
+    {
+        <div class="cards">
+            <center>
+            <img src="~/images/@item.imagefilename">
+                <div class="card-texts"><label><a>@item.topic</a></label></div>
+            </center>
+        </div>
+    }
+         </div>
+        
+
+ 
+
+
+

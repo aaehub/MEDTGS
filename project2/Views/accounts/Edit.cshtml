@@ -16,7 +16,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="row">
-            <div class="col-25"><label asp-for="username" class="control-label"></label></div>
+            <div class="col-25"><label asp-for="username" class="control-label">UserName</label></div>
             <div class="col-75">
                 <input asp-for="username" class="form-control" />
                 <span asp-validation-for="username" class="text-danger"></span>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="row">
-            <div class="col-25"><label asp-for="email" class="control-label"></label></div>
+            <div class="col-25"><label asp-for="email" class="control-label">Email</label></div>
             <div class="col-75">
                 <input asp-for="email" class="form-control" />
                 <span asp-validation-for="email" class="text-danger"></span>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="row">
-            <div class="col-25"><label asp-for="password" class="control-label"></label></div>
+            <div class="col-25"><label asp-for="password" class="control-label">Password</label></div>
             <div class="col-75">
                 <input asp-for="password" class="form-control" />
                 <span asp-validation-for="password" class="text-danger"></span>
@@ -43,10 +43,10 @@
             <div class="col-25"><label>Gender</label></div>
             <div class="col-75">
                 <div class="checkbox">
-                    <label> <input type="radio" asp-for="gender" value="male" /> male</label>
+                    <label> <input type="radio" asp-for="gender" value="male" /> Male</label>
                 </div>
                 <div class="checkbox">
-                    <label> <input type="radio" asp-for="gender" value="female" />female</label>
+                    <label> <input type="radio" asp-for="gender" value="female" />Female</label>
                 </div>
                 <span asp-validation-for="gender" class="text-danger"></span>
             </div>              
@@ -56,13 +56,13 @@
             <div class="col-25"><label>Role</label></div>
             <div class="col-75">
                 <div class="checkbox">
-                    <label> <input type="radio" asp-for="role" value="admin" /> admin</label>
+                    <label> <input type="radio" asp-for="role" value="admin" /> Admin</label>
                 </div>
                 <div class="checkbox">
-                    <label> <input type="radio" asp-for="role" value="customer" />customer</label>
+                    <label> <input type="radio" asp-for="role" value="customer" />Customer</label>
                 </div>
                 <div class="checkbox">
-                    <label> <input type="radio" asp-for="role" value="expert" />expert</label>
+                    <label> <input type="radio" asp-for="role" value="expert" />Expert</label>
                 </div>
                 <span asp-validation-for="role" class="text-danger"></span>
             </div>
@@ -73,7 +73,7 @@
 
 
         <div class="row">
-            <div class="col-25"><label>Date</label></div>
+            <div class="col-25"><label>Birth Date</label></div>
             <div class="col-75"> <input disabled asp-for="Date" class="form-control" /></div>
         </div>
 

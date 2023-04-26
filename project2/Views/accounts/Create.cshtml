@@ -18,24 +18,24 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" ></div>
             <div class="row">
-            <div class="col-25"> <label asp-for="username"></label></div>
+            <div class="col-25"> <label asp-for="username">UserName</label></div>
             <div class="col-75"><input asp-for="username" /><span asp-validation-for="username"></span></div>                           
             </div>
             <div class="row">
-            <div class="col-25"><label asp-for="email"></label></div>
+            <div class="col-25"><label asp-for="email">Email</label></div>
             <div class="col-75">
                 <input asp-for="email" /><span asp-validation-for="email"></span>
             </div>
         </div>
                 
             <div class="row">
-            <div class="col-25"><label asp-for="password"></label></div>
+            <div class="col-25"><label asp-for="password">Password</label></div>
             <div class="col-75">
                 <input asp-for="password" /><span asp-validation-for="password"></span></div>
             </div>
 
         <div class="row" style="border-top:solid; margin-top:20px">
-            <div class="col-25"> <label asp-for="gender"></label></div>
+            <div class="col-25"> <label asp-for="gender">Gender</label></div>
             <div class="col-75">
                 <div class="checkbox">
                     <label> <input type="radio" asp-for="gender" value="male" /> male</label>
@@ -46,7 +46,7 @@
             </div>            
             </div>
             <div class="row" style="border-top:solid; margin-top:20px">
-            <div class="col-25"><label asp-for="role" class="control-label"></label></div>
+            <div class="col-25"><label asp-for="role" class="control-label">Role</label></div>
             <div class="col-75">
                 <div class="checkbox">
                     <label> <input type="radio" asp-for="role" value="admin" /> admin</label>
@@ -64,7 +64,7 @@
             
             
             <div class="row">
-            <div class="col-25"><label asp-for="Date"></label></div>
+            <div class="col-25"><label asp-for="Date">Birth Date</label></div>
             <div class="col-75">
                 <input asp-for="Date" />
                 <span asp-validation-for="Date"></span>
