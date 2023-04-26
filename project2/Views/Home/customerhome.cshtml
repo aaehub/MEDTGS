@@ -39,7 +39,7 @@
         <div class="cards">
             <center>
             <img src="~/images/@item.imagefilename">
-                <div class="card-texts"><label><a>@item.topic</a></label></div>
+                <div class="card-texts"><label><a asp-controller="articles1" asp-action="details" asp-route-id="@item.Id">@item.topic</a></label></div>
             </center>
         </div>
     }
