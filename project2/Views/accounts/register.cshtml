@@ -1,6 +1,8 @@
 ﻿@model project2.Models.accounts
-
-<h4>accounts</h4>
+<div style="margin-top:30px;">
+    <a asp-action="Index"> Back </a>
+</div>
+<h4>Registration</h4>
 <hr />
 <div class="row">
     
@@ -31,53 +33,61 @@
         <form asp-action="register">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="username" class="control-label"></label>
-                <input asp-for="username" class="form-control" />
-                <span asp-validation-for="username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input type="password" asp-for="password" class="form-control" />
-                <span asp-validation-for="password" class="text-danger"></span>
-            </div>
-             <div class="form-group">
-                <label  class="control-label">password confirmation</label>
-                <input id="pass2" type="password" onchange="VP()" class="form-control" />
-              
-            </div>
-          
-                 <div  class="form-group">
-                 <label asp-for="gender" class="control-label"></label>
-
-
-            <div  class="checkbox">
-               <label> <input type="radio" asp-for="gender" value="male" id="rm" /> Male</label>
+            <div class="row">
+                <div class="col-25"> <label asp-for="username" class="control-label">UserName</label></div>
+                <div class="col-75">
+                    <input asp-for="username" class="form-control" />
+                    <span asp-validation-for="username" class="text-danger"></span>
                 </div>
-                <div class="checkbox">
-                    <label> <input  type="radio"  asp-for="gender" value="female" id="rf" />Female</label>
-                   </div> 
-                     <span asp-validation-for="gender"  class="text-danger" ></span>
-                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25"> <label asp-for="email" class="control-label">Email</label></div>
+                <div class="col-75">
+                    <input asp-for="email" class="form-control" />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25"><label asp-for="password" class="control-label">Password</label></div>
+                <div class="col-75">
+                    <input type="password" asp-for="password" class="form-control" />
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25"><label class="control-label">Password Confirmation</label></div>
+                <div class="col-75"> <input id="pass2" type="password" onchange="VP()" class="form-control" /></div>
+            </div>
+            <div class="row">
+                <div class="col-25"><label asp-for="gender" class="control-label">Gender</label></div>
+                <div class="col-75">
+                    <div class="checkbox">
+                        <label> <input type="radio" asp-for="gender" value="male" id="rm" /> Male</label>
+                    </div>
+                    <div class="checkbox">
+                        <label> <input type="radio" asp-for="gender" value="female" id="rf" /> Female</label>
+                    </div>
+                    <span asp-validation-for="gender" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25"></div>
+                <div class="col-75"><input type="submit" id="rb" value="Create" class="btn btn-primary" /></div>
+            </div>
          
          
 
             <div class="form-group">
-                <input type="submit"  id="rb" value="Create" class="btn btn-primary" />
+                
             </div>
         </form>
         @ViewData["message"]
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

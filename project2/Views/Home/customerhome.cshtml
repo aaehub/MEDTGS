@@ -11,8 +11,11 @@
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         transition: 0.3s;
         width: 30%;
+        margin-bottom:15px;
         border-radius: 5px;
         display:inline-block;
+        padding-top:30px;
+        padding-bottom:30px;
     }
 
         .card:hover {
@@ -36,9 +39,9 @@
 
     @foreach (var item in Model)
     {
-        <div class="cards">
+        <div class="cards" >
             <center>
-            <img src="~/images/@item.imagefilename">
+            <a asp-controller="articles1" asp-action="details" asp-route-id="@item.Id"><img src="~/images/@item.imagefilename" ></a>
                 <div class="card-texts"><label><a asp-controller="articles1" asp-action="details" asp-route-id="@item.Id">@item.topic</a></label></div>
             </center>
         </div>
