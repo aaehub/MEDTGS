@@ -103,7 +103,7 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,imagefilename")] article article)
+        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
             if (ss != "admin")
@@ -207,7 +207,7 @@ namespace project2.Controllers
                     articleid = (int)reader["articleid"],
                     username = (string)reader["username"],
                     accountid = (int)reader["accountid"],
-                     
+                    
                     article = article
                    
                 
@@ -375,7 +375,7 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,imagefilename")] article article)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
             if (ss == "admin" )
