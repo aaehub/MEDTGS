@@ -7,7 +7,7 @@
 
 
 <div style="margin-top:30px;">
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="home" asp-action="customerhome">Back to List</a>
 </div>
 
 
@@ -43,7 +43,11 @@
 
 
 
+@{
 
+    var c=Context.Session.GetString("role");
+
+    if ((string)c != null) { 
 
 
     <form  asp-action="CreateComment" style="border-top:solid;">
@@ -57,16 +61,31 @@
             </div>
         </div>
     </form>
+}
+}
+
+
 
 
 
             <ul style="border:solid;">
             @foreach (var std in @ViewData["test"] as IList<s>)
             {
+        
+
+            var d=Context.Session.GetString("role");
+
+        if ((string)d == "admin" || (string)c =="expert")
+        {
+                    
+
+
+}
+
                 
                 <li style="background-color:white">
                     <div style="text-align:left; color:gray">
-                @std.username  -  @std.Date
+                @std.username  -  @std.Date - @std id
                     </div>
             <div style="text-align:left;">
                 @std.comment

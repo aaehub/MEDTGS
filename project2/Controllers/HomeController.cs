@@ -110,7 +110,7 @@ namespace project2.Controllers
             HttpContext.Response.Cookies.Delete("username");
             HttpContext.Response.Cookies.Delete("role");
            
-            return RedirectToAction("login", "home");
+            return RedirectToAction("customerhome", "home");
 
         }
 
@@ -164,12 +164,15 @@ namespace project2.Controllers
                 string na1 = (string)reader["username"];
 
                 string ro = (string)reader["role"];
-                
+
+                string email=(string)reader["email"] ;
+               
+
 
                 HttpContext.Session.SetString("Id", id);
                 HttpContext.Session.SetString("name", na1);
                 HttpContext.Session.SetString("role", ro);
-
+                HttpContext.Session.SetString("email", email);
                 reader.Close();
                 conn1.Close();
 

@@ -18,13 +18,7 @@
     }
 </style>
 
-    <form asp-action="Search">
-    <div class="form-group">
-        
-        <input name="s" class="form-control" />
-    </div>
-    <input type="submit" value="Search" class="btn btn-default" />
-</form>
+    
 
 
 
@@ -86,14 +80,28 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.description)
                 </td>
+              
+                   <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+               
+                @{
 
+                    var c=Context.Session.GetString("role");
 
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    if ((string)c == "admin"|| (string)c =="expert")
+                    {
+                      
+                    
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
+
+                    }
+                }
+
+               
                 </td>
+
             </tr>
 
         }
