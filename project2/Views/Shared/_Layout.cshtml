@@ -12,7 +12,7 @@
 <body>
     <header>
         <div class="navbar">
-            <div class="logo"><img src="~/images/logo-white.png" style="height: 60px; width: 80px; float: left;margin-left: 10px; " alt=""></div>
+            <div class="logo"><a asp-controller="Home" asp-action="customerhome"><img src="~/images/logo-white.png" style="height: 60px; width: 80px; float: left;margin-left: 10px; " alt=""></a></div>
             <div class="nav">
                                           
                <ul>                     
@@ -83,7 +83,7 @@
                         {
                             <li style="float:right">
 
-                                <a asp-area="" asp-controller="home" asp-action="login"><i class="fa fa-login"></i> login</a>
+                                <a asp-area="" asp-controller="home" asp-action="login"><i class="fa fa-login"></i> Login</a>
                             </li>
                        
                         }
@@ -94,11 +94,12 @@
                                     <form class="form-container">
                                         <h1>Profile</h1>
                                         @{ var b=(string)Context.Session.GetString("name");}
-                                        <label>User Name:</label>
-                                        <label>@b   </label>
+                                        <h4>User Name: @b</h4>
+                                        
+                                        <br>
                                          @{ var a=(string)Context.Session.GetString("email");}
-                                        <label>E-mail:</label>
-                                        <label> @a   </label>
+                                        <h4>E-mail: @a </h4>
+                                        
 
                                         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                                     </form>
@@ -117,8 +118,9 @@
                             <div class="form-group">
 
                                 <input name="s" class="form-control" />
+                                <button type="submit"><i class="fa fa-search"></i></button>
                             </div>
-                            <input type="submit" value="Search" class="btn btn-default" />
+                            
                         </form>
 
                     </li>

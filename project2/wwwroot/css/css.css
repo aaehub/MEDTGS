@@ -10,18 +10,20 @@ body{
     border: solid;
     padding-bottom: 60px;
     background-color: black;
+    min-width:1250px;
+    
 }
 
 .nav ul li {
     list-style-type: none;
     float: left;
     margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 .nav ul li a{
     text-decoration: none;
-    border: solid white;
+    
     padding: 3px;
     color: white;
 }
