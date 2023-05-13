@@ -3,40 +3,45 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
-
-<h4>report</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" />
-                <span asp-validation-for="title" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="content" class="control-label"></label>
-                <input asp-for="content" class="form-control" />
-                <span asp-validation-for="content" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    @if ((string)ViewData["role"] == "admin"|| (string)ViewData["role"] == "expert" )
+<div style="margin-top:30px;">
+    @if ((string)ViewData["role"] == "admin" || (string)ViewData["role"] == "expert")
     {
         <a asp-action="Index">Back to List</a>
     }
 </div>
+<h1>Create</h1>
+
+<h4>report</h4>
+<hr />
+<div class="Content">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-25"><label asp-for="title" class="control-label"></label></div>
+            <div class="col-75">
+                <input asp-for="title" class="form-control" />
+                <span asp-validation-for="title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25"> <label asp-for="content" class="control-label"></label></div>
+            <div class="col-75">
+                <input asp-for="content" class="form-control" />
+                <span asp-validation-for="content" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25"></div>
+            <div class="col-75"><input type="submit" value="Create" class="btn btn-primary" /></div>
+        </div>
+            <br />
+            
+        </form>
+    </div>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -114,7 +114,8 @@ namespace project2.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _context.Add(comments);
+                comments.Date = DateTime.Now;
+                _context.Add(comments);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }

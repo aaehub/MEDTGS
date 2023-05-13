@@ -3,44 +3,76 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    th {
+        margin: 6px;
+    }
 
-<h1>Index</h1>
+    td {
+        margin: 6px;
+        border: solid;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+    a {
+        margin: 6px,6px;
+    }
+</style>
+
+
+    
+
+
+<h1 style="border-bottom:solid;">Comments</h1>
+<a asp-action="Create" >Create New</a>
+<center>
+<table>
     <thead>
         <tr>
+            <td>
+               <p>ID</p>
+                
+            </td>
+            <td>
+                <p>Date</p>
+                
+            </td>
+            <td>
+                <p>Article</p>
+               
+            </td>
+            <td>
+               <p>Comment</p>
+            </td>
+           
+              <td>
+               <p>Topic</p>
+            </td>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.comment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.accountid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.article)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.accountid)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.articleid)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.comment)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.accountid)
+             <td>
+                @Html.DisplayFor(modelItem => item.article.topic)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.article.Id)
+              <td>
+               
             </td>
             <td>
                 
@@ -51,6 +83,7 @@
 }
     </tbody>
 </table>
+</center>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -4,74 +4,78 @@
     ViewData["Title"] = "Create";
 }
 
+
+
+<div style="margin-top:30px;">
+    <a asp-action="Index">Back to List</a>
+
+   
+</div>
+
 <h1>Create</h1>
 
 <h4>accounts</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="username" class="control-label"></label>
-                <input asp-for="username" class="form-control" />
-                <span asp-validation-for="username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control" />
-                <span asp-validation-for="password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="gender" class="control-label"></label>
 
+    <div class="Content">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" ></div>
+            <div class="row">
+            <div class="col-25"> <label asp-for="username">UserName</label></div>
+            <div class="col-75"><input asp-for="username" /><span asp-validation-for="username"></span></div>                           
+            </div>
+            <div class="row">
+            <div class="col-25"><label asp-for="email">Email</label></div>
+            <div class="col-75">
+                <input asp-for="email" /><span asp-validation-for="email"></span>
+            </div>
+        </div>
+                
+            <div class="row">
+            <div class="col-25"><label asp-for="password">Password</label></div>
+            <div class="col-75">
+                <input asp-for="password" /><span asp-validation-for="password"></span></div>
+            </div>
+
+        <div class="row" style="border-top:solid; margin-top:20px">
+            <div class="col-25"> <label asp-for="gender">Gender</label></div>
+            <div class="col-75">
                 <div class="checkbox">
                     <label> <input type="radio" asp-for="gender" value="male" /> male</label>
                 </div>
                 <div class="checkbox">
                     <label> <input type="radio" asp-for="gender" value="female" />female</label>
                 </div>
-       
+            </div>            
+            </div>
+            <div class="row" style="border-top:solid; margin-top:20px">
+            <div class="col-25"><label asp-for="role" class="control-label">Role</label></div>
+            <div class="col-75">
+                <div class="checkbox">
+                    <label> <input type="radio" asp-for="role" value="admin" /> admin</label>
+                </div>
+                <div class="checkbox">
+                    <label> <input type="radio" asp-for="role" value="customer" />customer</label>
+                </div>
+                <div class="checkbox">
+                    <label> <input type="radio" asp-for="role" value="expert" />expert</label>
+
+                    <span asp-validation-for="role" class="text-danger"></span>
+                </div>
+            </div>
+            </div>
             
             
-            </div>
-            <label asp-for="role" class="control-label"></label>
-            <div class="checkbox">
-                <label> <input type="radio" asp-for="role" value="admin" /> admin</label>
-            </div>
-            <div class="checkbox">
-                <label> <input type="radio" asp-for="role" value="customer" />customer</label>
-            </div>
-            <div class="checkbox">
-                <label> <input type="radio" asp-for="role" value="expert" />expert</label>
+           
 
-                <span asp-validation-for="role" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-
-
-
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div style="text-align:center;margin-bottom:30px;margin-top:30px;">
+                <input type="submit" value="Create" />
             </div>
             @ViewData["message"]
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{

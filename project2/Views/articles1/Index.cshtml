@@ -4,46 +4,69 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
+<style>
+    th{
+        margin:6px;
+    }
+    td{
+        margin:6px;
+        border:solid;
+    }
+    a{
+       
 
+        margin: 6px,6px;
+        
+    }
+    
 
+</style>
+<h1 style="border-bottom:solid;">Articles</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+
+<table >
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                
+            </th>
+           
+            <th>
+                <p>  Topic  </p>
+            </th>
+
+            <th>
+                <p>  Category  </p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.topic)
+                <p>  Tag  </p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.category)
+                <p>Description</p>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tag)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imagefilename)
-            </th>
-            <th></th>
+            
+            
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <th>
+
+
+                    <img style="margin:0;" src="~/images/@item.imagefilename" height="20">
+
+                </th>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.topic)
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.topic)
-            </td>
+
+                           
             <td>
                 @Html.DisplayFor(modelItem => item.category)
             </td>
@@ -53,22 +76,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.description)
             </td>
-            <td>
-              
+            
 
-                    <img src="~/images/@item.imagefilename" height="20">
-
-                </td>
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                
             </td>
         </tr>
-}
+    
+    }
     </tbody>
 </table>
+
+
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

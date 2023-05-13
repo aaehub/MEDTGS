@@ -106,8 +106,9 @@ namespace project2.Controllers
 
 
                 await _context.SaveChangesAsync();
-                HttpContext.Session.SetString("Id", Convert.ToString(myusers.Id));
-                return RedirectToAction("customerhome", "home");
+             //   HttpContext.Session.SetString("Id", Convert.ToString(myusers.Id));
+           
+                return RedirectToAction("home", "login");
             }
             conn.Close();
             return View();
@@ -238,6 +239,7 @@ namespace project2.Controllers
 
                     if (ModelState.IsValid)
                     {
+                        myusers.Date = DateTime.Now;
                         _context.Add(myusers);
                         await _context.SaveChangesAsync();
                         conn.Close();
