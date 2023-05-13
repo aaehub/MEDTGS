@@ -3,54 +3,87 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<div style="margin-top:30px;">
+    <a asp-action="Index">Back to List</a>
+</div> 
 <h1>Create</h1>
 
 <h4>article</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div >
+
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="topic" class="control-label"></label>
-                <input asp-for="topic" class="form-control" />
-                <span asp-validation-for="topic" class="text-danger"></span>
+
+            <div asp-validation-summary="ModelOnly" ></div>
+
+            <div class="row">
+            <div class="col-25"><label asp-for="topic" ></label></div>
+            <div class="col-75">
+                <input asp-for="topic" />
+                <span asp-validation-for="topic" ></span>
+            </div>               
             </div>
-            <div class="form-group">
-                <label asp-for="category" class="control-label"></label>
-                <input asp-for="category" class="form-control" />
-                <span asp-validation-for="category" class="text-danger"></span>
+
+            <div class="row">
+            <div class="col-25"><label asp-for="category" ></label></div>
+            <div class="col-75">
+                <input asp-for="category"  />
+                <span asp-validation-for="category"></span>
+            </div>  
+            
+
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="tag" class="control-label"></label>
-                <input asp-for="tag" class="form-control" />
-                <span asp-validation-for="tag" class="text-danger"></span>
+
+            <div class="row">
+            <div class="col-25"><label asp-for="tag" ></label></div>
+            <div class="col-75">
+                <input asp-for="tag"  />
+                <span asp-validation-for="tag" ></span>
+            </div>               
             </div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
-                <span asp-validation-for="description" class="text-danger"></span>
+
+                        <div class="row">
+            <div class="col-25"><label asp-for="location" ></label></div>
+            <div class="col-75">
+                <input asp-for="location"  />
+                <span asp-validation-for="location" ></span>
+            </div>               
+            </div>
+
+
+            <div class="row">
+            <div class="col-25"> <label asp-for="description" ></label></div>
+            <div class="col-75">
+                <input  asp-for="description" style="width:80%; height:80px;  " />
+                <span asp-validation-for="description" ></span>
+            </div>               
             </div>
         
 
            
-            <div class="form-group">
-                <label asp-for="imagefilename" class="control-label"></label>
-                <input type="file" asp-for="imagefilename" class="form-control" />
-                <span asp-validation-for="imagefilename" class="text-danger"></span>
+            <div class="row">
+            <div class="col-25"><label asp-for="imagefilename"></label></div>
+            <div class="col-75">
+                <input type="file" asp-for="imagefilename"  />
+                <span asp-validation-for="imagefilename" ></span>
+            </div>                
             </div>
             
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <br />
+        <br />
+        <br />
+            <div class="row" >
+            <div class="col-25"></div>
+            <div class="col-75"><input type="submit" value="Create" class="btn btn-primary" /></div>
+                
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

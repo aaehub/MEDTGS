@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using project2.Data;
 using project2.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -102,7 +103,7 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,imagefilename")] article article)
+        public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
             if (ss != "admin")
@@ -206,7 +207,7 @@ namespace project2.Controllers
                     articleid = (int)reader["articleid"],
                     username = (string)reader["username"],
                     accountid = (int)reader["accountid"],
-                     
+                    
                     article = article
                    
                 
@@ -295,13 +296,19 @@ namespace project2.Controllers
         {
 
 
-
+            
+        
 
             var builder = WebApplication.CreateBuilder();
             string conStr = builder.Configuration.GetConnectionString("project2Context");
-            SqlConnection conn = new SqlConnection(conStr); string sql;
 
-          
+
+
+            SqlConnection conn = new SqlConnection(conStr);
+
+
+             string sql;
+
 
             /*
              * 
@@ -368,46 +375,49 @@ namespace project2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,imagefilename")] article article)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss != "admin" || ss!= "expert")
+            if (ss == "admin" )
             {
+                if (id != article.Id)
+                {
+                    return NotFound();
+                }
 
-                return RedirectToAction("login", "home");
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                       
+                        
+                        _context.Update(article);
+                        
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!articleExists(article.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(article);
+
             }
 
             else
             {
 
-               
+               return RedirectToAction("login", "home");
 
-                    if (id != article.Id)
-                    {
-                        return NotFound();
-                    }
-
-                    if (ModelState.IsValid)
-                    {
-                        try
-                        {
-                            _context.Update(article);
-                            await _context.SaveChangesAsync();
-                        }
-                        catch (DbUpdateConcurrencyException)
-                        {
-                            if (!articleExists(article.Id))
-                            {
-                                return NotFound();
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                        return RedirectToAction(nameof(Index));
-                    }
-                    return View(article);
+                
                 }
         }
 

@@ -58,15 +58,16 @@ namespace project2.Controllers
 
 
             List<article> li = new List<article>();
-           
-            
+
+
             var builder = WebApplication.CreateBuilder();
             string conStr = builder.Configuration.GetConnectionString("project2Context");
+
+
             SqlConnection conn = new SqlConnection(conStr);
 
 
-
-             string sql;
+              string sql;
             sql = "select * from article order by Id";
             SqlCommand comm = new SqlCommand(sql, conn);
 
@@ -109,7 +110,7 @@ namespace project2.Controllers
             HttpContext.Response.Cookies.Delete("username");
             HttpContext.Response.Cookies.Delete("role");
            
-            return RedirectToAction("login", "home");
+            return RedirectToAction("customerhome", "home");
 
         }
 
@@ -145,15 +146,16 @@ namespace project2.Controllers
         {
 
             var builder = WebApplication.CreateBuilder();
-            string conStr = builder.Configuration.GetConnectionString("project2");
-
+            string conStr = builder.Configuration.GetConnectionString("project2Context");
            
-            SqlConnection conn = new SqlConnection(conStr);
 
-             string sql;
+            SqlConnection conn1 = new SqlConnection(conStr);
+
+
+              string sql;
             sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
-            SqlCommand comm = new SqlCommand(sql, conn);
-            conn.Open();
+            SqlCommand comm = new SqlCommand(sql, conn1);
+            conn1.Open();
             SqlDataReader reader = comm.ExecuteReader();
 
             if (reader.Read())
@@ -163,13 +165,16 @@ namespace project2.Controllers
 
                 string ro = (string)reader["role"];
 
+                string email=(string)reader["email"] ;
+               
+
 
                 HttpContext.Session.SetString("Id", id);
                 HttpContext.Session.SetString("name", na1);
                 HttpContext.Session.SetString("role", ro);
-
+                HttpContext.Session.SetString("email", email);
                 reader.Close();
-                conn.Close();
+                conn1.Close();
 
 
 

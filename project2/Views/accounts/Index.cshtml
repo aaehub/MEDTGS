@@ -1,9 +1,23 @@
-﻿@model IEnumerable<project2.Models.accounts>
-
+﻿
+@model IEnumerable<project2.Models.accounts>
+<style>
+    th{
+       
+        padding:6px;
+        border:solid;
+    }
+    table{
+        border:solid;
+    }
+</style>
+<h1 style="border-bottom:solid;">Accounts</h1>
 <p>
     <a asp-action="Create">Create New</a>
+
+    <a asp-controller="accounts" asp-action="search">search user</a>
 </p>
-<table class="table">
+<div style="margin-left:20%;">
+<table class="table" >
     <thead>
         <tr>
             <th>
@@ -24,7 +38,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
-            <th></th>
+            <th>Control</th>
         </tr>
     </thead>
     <tbody>
@@ -57,3 +71,4 @@
 }
     </tbody>
 </table>
+</div>
