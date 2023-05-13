@@ -49,20 +49,28 @@
                 </div>                               
             </div>
 
+
+               <div class="row">
+                <div class="col-25"><label asp-for="location">location</label></div>
+                <div class="col-75">
+                    <input asp-for="location" />
+                    <span asp-validation-for="location"></span>
+                </div>                               
+            </div>
+
             <div class="row" style="margin-top:30px;margin-bottom:30px;">
                 <div class="col-25"><label asp-for="imagefilename">Image</label></div>
                 <div class="col-75">
                     <img style="margin:0;" src="~/images/@Model.imagefilename" height="20">
                  
-             <!-- 
-                future feature editing image of the article    
+
+    
              
-             <input id=input type="file"   asp-for="imagefilename" />
-                     
-                   <span asp-validation-for="imagefilename"></span>
+             <input id=input    asp-for="imagefilename" />
+              <span asp-validation-for="imagefilename"></span>
 
-
-                    -->
+              
+                    
 
 
 
