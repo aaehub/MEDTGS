@@ -9,7 +9,7 @@ builder.Services.AddDbContext<project2Context>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(90); });
+builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(50); });
 var app = builder.Build();
 
 
