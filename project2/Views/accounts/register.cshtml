@@ -1,12 +1,35 @@
 ﻿@model project2.Models.accounts
-<div style="margin-top:30px;">
-    <a asp-action="Index"> Back </a>
-</div>
+
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> - MTGS</title>
+    <link rel="stylesheet" href="~/css/css.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
 <h4>Registration</h4>
 <hr />
-<div class="row">
-    
- <script>
+
+<div class="row" style="
+margin: 0;
+margin-left: 30%;
+margin-right: 30%;
+justify-content: center;
+border-radius: 25px;
+    background-color: rgba(26, 26, 26, 0.533);
+
+    padding: 5%;">
+
+    <script>
 
         @* For more information on enabling MVC for empty projects, visit
             http://go.microsoft.com/fwlink/?LinkID=397860 *@ @{
@@ -35,7 +58,7 @@
    
 </script>
 
-    <div class="col-md-4">
+    <div >
         <form asp-action="register">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -79,6 +102,8 @@
             </div>
 
             <div class="row">
+                <a asp-action="Index"> Back </a>
+
                 <div class="col-25"></div>
                 <div class="col-75"><input type="submit" id="rb" value="Create" class="btn btn-primary" /></div>
             </div>
