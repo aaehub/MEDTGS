@@ -148,10 +148,10 @@ namespace project2.Controllers
             var builder = WebApplication.CreateBuilder();
             string conStr = builder.Configuration.GetConnectionString("project2Context");
            
-
+            //getting data from database (sql)
             SqlConnection conn1 = new SqlConnection(conStr);
 
-
+            
               string sql;
             sql = "SELECT * FROM accounts where username ='" + na + "' and  password ='" + pa + "' ";
             SqlCommand comm = new SqlCommand(sql, conn1);
@@ -168,14 +168,13 @@ namespace project2.Controllers
                 string email=(string)reader["email"] ;
                
 
-
+                //session data
                 HttpContext.Session.SetString("Id", id);
                 HttpContext.Session.SetString("name", na1);
                 HttpContext.Session.SetString("role", ro);
                 HttpContext.Session.SetString("email", email);
                 reader.Close();
                 conn1.Close();
-
 
 
 
@@ -195,12 +194,6 @@ namespace project2.Controllers
                 {
                     return RedirectToAction("adminhome", "Home");
                 }
-
-
-
-
-
-
             }
             else
             {
@@ -213,13 +206,6 @@ namespace project2.Controllers
             return View();
 
         }
-
-
-
-
-
-
-
 
     }
 }
