@@ -1,13 +1,21 @@
 ﻿
 @model IEnumerable<project2.Models.accounts>
+@{
+    ViewData["Title"] = "Index";
+}
+
 <style>
-    th{
-       
-        padding:6px;
-        border:solid;
+    th {
+        margin: 6px;
     }
-    table{
-        border:solid;
+
+    td {
+        margin: 6px;
+        border: solid;
+    }
+
+    a {
+        margin: 6px,6px;
     }
 </style>
 <h1 style="border-bottom:solid;">Accounts</h1>
@@ -16,8 +24,8 @@
 
     <a asp-controller="accounts" asp-action="search">search user</a>
 </p>
-<div style="margin-left:20%;">
-<table class="table" >
+<div >
+<table  >
     <thead>
         <tr>
             <th>

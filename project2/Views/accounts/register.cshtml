@@ -16,18 +16,23 @@
 
 </head>
 
-<h4>Registration</h4>
-<hr />
+<br />
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
 
-<div class="row" style="
-margin: 0;
-margin-left: 30%;
-margin-right: 30%;
-justify-content: center;
-border-radius: 25px;
-    background-color: rgba(26, 26, 26, 0.533);
+<body style="background-color: lightgrey; color: white">
+    <div style="
+        display: grid;
+        justify-content: center;
 
-    padding: 5%;">
+        border-radius: 25px;
+        background-color: rgba(26, 26, 26, 0.533);
+        margin: 0 30%;
+        padding: 5%;
+        margin-top:10%;
+      ">
+
 
     <script>
 
@@ -62,35 +67,37 @@ border-radius: 25px;
         <form asp-action="register">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <div class="col-25"> <label asp-for="username" class="control-label">UserName</label></div>
-                <div class="col-75">
-                    <input asp-for="username" class="form-control" />
+
+            <h4>Registration</h4>
+                <div class="form-group">
+                <div > <label asp-for="username" class="control-label">UserName</label></div>
+                <div >
+                    <input asp-for="username" required class="form-control" />
                     <span asp-validation-for="username" class="text-danger"></span>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-25"> <label asp-for="email" class="control-label">Email</label></div>
-                <div class="col-75">
+                <div class="form-group">
+                <div > <label asp-for="email" class="control-label">Email</label></div>
+                <div >
                     <input asp-for="email" class="form-control" />
                     <span asp-validation-for="email" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-25"><label asp-for="password" class="control-label">Password</label></div>
-                <div class="col-75">
-                    <input type="password" asp-for="password" class="form-control" />
+                <div class="form-group">
+                <div ><label asp-for="password" class="control-label">Password</label></div>
+                <div >
+                    <input type="password" minlength="8" required asp-for="password" class="form-control" />
                     <span asp-validation-for="password" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-25"><label class="control-label">Password Confirmation</label></div>
-                <div class="col-75"> <input id="pass2" type="password" onchange="VP()" class="form-control" /></div>
+                <div class="form-group">
+                <div ><label class="control-label">Password Confirmation</label></div>
+                <div >  <input id="pass2" minlength="8" required type="password" onchange="VP()" class="form-control" /></div>
             </div>
-            <div class="row">
-                <div class="col-25"><label asp-for="gender" class="control-label">Gender</label></div>
-                <div class="col-75">
+                <div class="form-group">
+                <div ><label asp-for="gender" class="control-label">Gender</label></div>
+                    <div class="form-group">
                     <div class="checkbox">
                         <label> <input type="radio" asp-for="gender" value="male" id="rm" /> Male</label>
                     </div>
@@ -117,7 +124,7 @@ border-radius: 25px;
         @ViewData["message"]
     </div>
 </div>
-
+</body>
 
 
 @section Scripts {

@@ -197,7 +197,7 @@ namespace project2.Controllers
             }
             else
             {
-                ViewData["Message"] = "wrong user name and password";
+                ViewData["Message"] = "wrong user name or password";
 
 
 
