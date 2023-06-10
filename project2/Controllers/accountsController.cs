@@ -108,7 +108,7 @@ namespace project2.Controllers
                 await _context.SaveChangesAsync();
              //   HttpContext.Session.SetString("Id", Convert.ToString(myusers.Id));
            
-                return RedirectToAction("home", "login");
+                return RedirectToAction("login", "home");
             }
             conn.Close();
             return View();

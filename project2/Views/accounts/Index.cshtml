@@ -18,14 +18,14 @@
         margin: 6px,6px;
     }
 </style>
-<h1 style="border-bottom:solid;">Accounts</h1>
+<h1 style="border-bottom:solid;     ">Accounts</h1>
 <p>
     <a asp-action="Create">Create New</a>
 
     <a asp-controller="accounts" asp-action="search">search user</a>
 </p>
 <div >
-<table  >
+<table style="word-wrap: break-word;" >
     <thead>
         <tr>
             <th>
@@ -80,3 +80,8 @@
     </tbody>
 </table>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
