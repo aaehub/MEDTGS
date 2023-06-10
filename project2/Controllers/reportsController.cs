@@ -129,15 +129,8 @@ namespace project2.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,title,date,content,isSolved")] report report)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss != "admin" || ss != "expert")
+            if (ss == "admin" || ss == "expert")
             {
-
-                return RedirectToAction("login", "home");
-            }
-
-            else
-            {
-
                 if (id != report.Id)
                 {
                     return NotFound();
@@ -167,6 +160,13 @@ namespace project2.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 return View(report);
+
+            }
+
+            else
+            { return RedirectToAction("login", "home");
+
+               
             }
         }
 
