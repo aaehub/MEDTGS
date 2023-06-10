@@ -19,6 +19,11 @@
             <a asp-area="" asp-controller="reports" asp-action="Index">Reports</a> <span> This part is working for Report from user</span>
     </li>
 
+     @{
+
+                            var c=Context.Session.GetString("role");
+
+                        if ( (string)c == "admin") { 
 
 
     <li >
@@ -26,7 +31,7 @@
     </li>
 
 
-
+                        }}
 
     <li >
             <a asp-area="" asp-controller="comments" asp-action="Index">Comments</a> <span> This part is working for Check and Delete Comments</span>
