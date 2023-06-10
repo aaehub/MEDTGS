@@ -27,7 +27,7 @@ namespace project2.Controllers
         public async Task<IActionResult> search()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin" || ss == "expert")
+            if (ss == "admin" )
             {
 
 
@@ -51,7 +51,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Search(string s)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin" || ss == "expert")
+            if (ss == "admin")
             {
 
                 var brItems = await _context.accounts.FromSqlRaw("select * from accounts where username LIKE '%" + s + "%' ").ToListAsync();
@@ -122,7 +122,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Index()
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin" || ss == "expert")
+            if (ss == "admin")
             {
 
 
@@ -146,7 +146,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin" || ss == "expert")
+            if (ss == "admin")
             {
 
 

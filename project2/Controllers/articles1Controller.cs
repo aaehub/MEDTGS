@@ -106,7 +106,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Create([Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss != "admin")
+            if (  ss == "customer" )
             {
 
                 return RedirectToAction("login", "home");
@@ -129,7 +129,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss != "admin")
+            if (ss == "customer")
             {
 
                 return RedirectToAction("login", "home");
@@ -378,7 +378,7 @@ namespace project2.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,topic,category,tag,description,location,imagefilename")] article article)
         {
             string ss = HttpContext.Session.GetString("role");
-            if (ss == "admin" )
+            if (ss != "customer")
             {
                 if (id != article.Id)
                 {
